@@ -8,10 +8,17 @@ export const useAppController = () => {
     const [settings, setSettings] = useState(() => {
         const saved = localStorage.getItem('fono-settings');
         // Default to voice only settings, hardcoding kids theme
-        return saved ? { ...JSON.parse(saved), theme: 'kids' } : {
+        return saved ? {
             voiceURI: '',
             rate: 1,
-            theme: 'kids'
+            theme: 'kids',
+            settingsBtnPosition: 'header',
+            ...JSON.parse(saved)
+        } : {
+            voiceURI: '',
+            rate: 1,
+            theme: 'kids',
+            settingsBtnPosition: 'header'
         };
     });
 

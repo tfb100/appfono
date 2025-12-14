@@ -51,6 +51,47 @@
     transform: scale(0.95);
 }
 
+/* Floating Positions */
+.settings-btn.pos-float-tr {
+    position: fixed;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    z-index: 1000;
+    background: var(--color-primary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.settings-btn.pos-float-br {
+    position: fixed;
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    z-index: 1000;
+    background: var(--color-primary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.settings-btn.pos-float-bl {
+    position: fixed;
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+    z-index: 1000;
+    background: var(--color-primary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.settings-btn.pos-float-tl {
+    position: fixed;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    z-index: 1000;
+    background: var(--color-primary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.settings-btn.hidden {
+    display: none;
+}
+
 main {
     max-width: 1200px;
     margin: 0 auto;

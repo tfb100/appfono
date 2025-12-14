@@ -29,6 +29,22 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
             ))}
           </select>
         </div>
+
+        <div className="settings-section">
+          <h3>Interface</h3>
+          <select
+            value={settings.settingsBtnPosition || 'header'}
+            onChange={(e) => setSettings(prev => ({ ...prev, settingsBtnPosition: e.target.value }))}
+            className="voice-select"
+          >
+            <option value="header">Cabeçalho (Padrão)</option>
+            <option value="float-tr">Flutuante: Canto Superior Direito</option>
+            <option value="float-br">Flutuante: Canto Inferior Direito</option>
+            <option value="float-bl">Flutuante: Canto Inferior Esquerdo</option>
+            <option value="float-tl">Flutuante: Canto Superior Esquerdo</option>
+            <option value="hidden">Oculto (Clique 3x no Leão)</option>
+          </select>
+        </div>
       </div>
     </div>
   );
