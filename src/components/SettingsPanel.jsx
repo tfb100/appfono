@@ -1,0 +1,36 @@
+import React from 'react';
+import { X } from 'lucide-react';
+
+const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="settings-overlay">
+      <div className="settings-modal">
+        <div className="settings-header">
+          <h2>Configurações</h2>
+          <button onClick={onClose} aria-label="Fechar configurações" className="close-btn">
+            <X size={24} />
+          </button>
+        </div>
+
+        <div className="settings-section">
+          <h3>Voz (TTS)</h3>
+          <select
+            value={settings.voiceURI}
+            onChange={(e) => setSettings(prev => ({ ...prev, voiceURI: e.target.value }))}
+            className="voice-select"
+          >
+            <option value="">Padrão do Dispositivo</option>
+            {voices.map(v => (
+              <option key={v.voiceURI} value={v.voiceURI}>
+                {v.name.slice(0, 30)} ({v.lang})
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default SettingsPanel;

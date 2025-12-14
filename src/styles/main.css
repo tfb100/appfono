@@ -1,0 +1,106 @@
+:root {
+  /* Colors */
+  --color-primary: #FFB703;
+  /* Honey Yellow */
+  --color-secondary: #219EBC;
+  /* Blue Green */
+  --color-bg: #E0F7FA;
+  /* Light Cyan */
+  --color-text: #023047;
+  /* Dark Blue */
+  --color-card-bg: #FFFFFF;
+  --color-border: #E5E7EB;
+  /* Gray 200 */
+
+  /* Typography */
+  --font-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-base: 22px;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 1.5rem;
+  --radius-lg: 2rem;
+  --radius-full: 9999px;
+
+  /* AAC Category Colors (Fitzgerald Key Simplified) */
+  --color-aac-social: #F48FB1;
+  /* Pink - Greetings/Social */
+  --color-aac-verb: #81C784;
+  /* Green - Actions */
+  --color-aac-noun: #FFB74D;
+  /* Orange - Things */
+  --color-aac-adj: #4FC3F7;
+  /* Blue - Descriptives */
+  --color-aac-people: #FFF176;
+  /* Yellow - People */
+}
+
+.app-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-image: url('../assets/kids-bg.png');
+  background-size: 400px;
+  background-repeat: repeat;
+  background-position: center;
+  pointer-events: none;
+}
+
+.app-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  /* White overlay to fade the pattern */
+  background-blend-mode: overlay;
+}
+
+body {
+  font-family: var(--font-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
