@@ -76,6 +76,18 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
               <option value="bottom">Inferior</option>
             </select>
 
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Idioma</label>
+            <select
+              value={settings.language || 'pt'}
+              onChange={(e) => setSettings(prev => ({ ...prev, language: e.target.value }))}
+              className="voice-select"
+              style={{ marginBottom: '1rem' }}
+            >
+              <option value="pt">Português</option>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+            </select>
+
             <label className="setting-toggle">
               <input
                 type="checkbox"
@@ -122,26 +134,31 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
               <div className="favorites-manager" style={{ marginTop: '1rem' }}>
                 <p style={{ fontSize: '0.85rem', opacity: 0.7, marginBottom: '0.5rem' }}>Marque os botões favoritos:</p>
                 <div className="fav-selection-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
-                  {QuoteSymbols.map(s => (
-                    <button
-                      key={s.id}
-                      onClick={() => toggleManualFavorite(s.id)}
-                      style={{
-                        padding: '8px',
-                        borderRadius: '8px',
-                        border: (settings.manualFavorites || []).includes(s.id) ? '2px solid var(--color-primary)' : '1px solid #ddd',
-                        background: (settings.manualFavorites || []).includes(s.id) ? '#fff8e1' : 'white',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        fontSize: '0.85rem',
-                        textAlign: 'left'
-                      }}
-                    >
-                      <Star size={14} fill={(settings.manualFavorites || []).includes(s.id) ? 'var(--color-primary)' : 'none'} color={(settings.manualFavorites || []).includes(s.id) ? 'var(--color-primary)' : '#ccc'} />
-                      <span style={{ flex: 1 }}>{s.label}</span>
-                    </button>
-                  ))}
+                  {QuoteSymbols.map(s => {
+                    const currentLang = settings.language || 'pt';
+                    const label = typeof s.label === 'object' ? s.label[currentLang] : s.label;
+
+                    return (
+                      <button
+                        key={s.id}
+                        onClick={() => toggleManualFavorite(s.id)}
+                        style={{
+                          padding: '8px',
+                          borderRadius: '8px',
+                          border: (settings.manualFavorites || []).includes(s.id) ? '2px solid var(--color-primary)' : '1px solid #ddd',
+                          background: (settings.manualFavorites || []).includes(s.id) ? '#fff8e1' : 'white',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          fontSize: '0.85rem',
+                          textAlign: 'left'
+                        }}
+                      >
+                        <Star size={14} fill={(settings.manualFavorites || []).includes(s.id) ? 'var(--color-primary)' : 'none'} color={(settings.manualFavorites || []).includes(s.id) ? 'var(--color-primary)' : '#ccc'} />
+                        <span style={{ flex: 1 }}>{label}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}

@@ -34,25 +34,30 @@ const SymbolGrid = ({ onSpeak, settings }) => {
     return { manual, frequent, others };
   }, [manualFavorites, usageStats, showManualFavorites, showFrequentSymbols]);
 
-  const renderCard = (s, isSmall = false) => (
-    <button
-      key={s.id}
-      className={`symbol-card category-${s.category} ${isSmall ? 'small' : ''}`}
-      onClick={() => onSpeak(s)}
-      aria-label={`Falar: ${s.label}`}
-    >
-      <div className="symbol-icon-wrapper">
-        {React.isValidElement(s.icon) && s.icon.type !== 'span'
-          ? React.cloneElement(s.icon, {
-            size: isSmall ? 40 : 56,
-            strokeWidth: 2.5
-          })
-          : s.icon
-        }
-      </div>
-      <div className="symbol-label">{s.label}</div>
-    </button>
-  );
+  const renderCard = (s, isSmall = false) => {
+    const currentLang = settings.language || 'pt';
+    const label = typeof s.label === 'object' ? s.label[currentLang] : s.label;
+
+    return (
+      <button
+        key={s.id}
+        className={`symbol-card category-${s.category} ${isSmall ? 'small' : ''}`}
+        onClick={() => onSpeak(s)}
+        aria-label={`Falar: ${label}`}
+      >
+        <div className="symbol-icon-wrapper">
+          {React.isValidElement(s.icon) && s.icon.type !== 'span'
+            ? React.cloneElement(s.icon, {
+              size: isSmall ? 40 : 56,
+              strokeWidth: 2.5
+            })
+            : s.icon
+          }
+        </div>
+        <div className="symbol-label">{label}</div>
+      </button>
+    );
+  };
 
   return (
     <div className="grid-container">
