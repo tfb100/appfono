@@ -1,7 +1,7 @@
 import { Settings } from 'lucide-react'
 import SymbolGrid from './components/SymbolGrid'
 import SettingsPanel from './components/SettingsPanel'
-import SupportBanner from './components/SupportBanner'
+import SupportFooter from './components/SupportFooter'
 import { useAppController } from './controllers/useAppController'
 import { useEffect } from 'react'
 import { translations } from './utils/translations'
@@ -79,12 +79,16 @@ function App() {
 
 
       <main>
-        <SupportBanner language={settings.language || 'pt'} />
         <SymbolGrid
           onSpeak={handleSpeak}
           settings={settings}
         />
       </main>
+
+      <SupportFooter
+        language={settings.language || 'pt'}
+        onClick={() => console.log('Future donation page')}
+      />
 
       <SettingsPanel
         isOpen={isSettingsOpen}
