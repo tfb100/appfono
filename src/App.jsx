@@ -46,11 +46,6 @@ function App() {
     document.body.setAttribute('data-font-color', settings.fontColor || 'white');
   }, [settings.buttonPalette, settings.fontColor]);
 
-  const getSettingsBtnClass = () => {
-    const pos = settings.settingsBtnPosition || 'header';
-    if (pos === 'header') return 'settings-btn';
-    return `settings-btn pos-${pos}`;
-  };
 
   return (
     <div className="app-container">
@@ -61,28 +56,14 @@ function App() {
           <h1>Fono Kids</h1>
         </div>
 
-        {/* Only render in header if position is 'header' */}
-        {(settings.settingsBtnPosition === 'header' || !settings.settingsBtnPosition) && (
-          <button
-            className="settings-btn"
-            onClick={() => toggleSettings(true)}
-            aria-label="Abrir configurações"
-          >
-            <Settings size={28} />
-          </button>
-        )}
-      </header>
-
-      {/* Render floating button if position is NOT header and NOT hidden */}
-      {settings.settingsBtnPosition && settings.settingsBtnPosition !== 'header' && settings.settingsBtnPosition !== 'hidden' && (
         <button
-          className={getSettingsBtnClass()}
+          className="settings-btn"
           onClick={() => toggleSettings(true)}
           aria-label="Abrir configurações"
         >
           <Settings size={28} />
         </button>
-      )}
+      </header>
 
 
       <main>
