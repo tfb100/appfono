@@ -47,13 +47,18 @@ export const useAppController = () => {
     // Auto-select voice based on language
     useEffect(() => {
         if (voices.length > 0 && settings.language !== prevLangRef.current) {
-            const langCode = settings.language === 'pt' ? 'pt' : settings.language === 'en' ? 'en' : 'es';
-            const matchingVoice = voices.find(v => v.lang.toLowerCase().startsWith(langCode));
+            const currentLang = settings.language;
+            const searchCodes = currentLang === 'pt' ? ['pt'] : currentLang === 'en' ? ['en'] : ['es', 'spa'];
+            const matchingVoice = voices.find(v => {
+                const voiceLang = v.lang.toLowerCase();
+                return searchCodes.some(code => voiceLang.startsWith(code) || voiceLang.includes(code));
+            });
 
-            if (matchingVoice) {
-                setSettings(prev => ({ ...prev, voiceURI: matchingVoice.voiceURI }));
-            }
-            prevLangRef.current = settings.language;
+            setSettings(prev => ({
+                ...prev,
+                voiceURI: matchingVoice ? matchingVoice.voiceURI : ''
+            }));
+            prevLangRef.current = currentLang;
         }
     }, [settings.language, voices]);
 
@@ -95,7 +100,9 @@ export const useAppController = () => {
                 console.warn(`Failed to play MP3 for ${label}, falling back to TTS`, error);
             }
         }
-        await speak(textToSpeak, settings.voiceURI, settings.rate);
+
+        const langCodes = { pt: 'pt-BR', en: 'en-US', es: 'es-ES' };
+        await speak(textToSpeak, settings.voiceURI, settings.rate, 1, langCodes[currentLang]);
     };
 
     const toggleFavorite = (id) => {

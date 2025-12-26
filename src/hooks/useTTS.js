@@ -44,19 +44,21 @@ export const useTTS = () => {
         };
     }, [isNative]);
 
-    const speak = useCallback(async (text, voiceURI = null, rate = 1, pitch = 1) => {
+    const speak = useCallback(async (text, voiceURI = null, rate = 1, pitch = 1, lang = null) => {
         if (!supported || !text) return;
 
         try {
             if (isNative) {
                 await TextToSpeech.stop();
                 setSpeaking(true);
+                const voiceIndex = voices.findIndex(v => v.voiceURI === voiceURI);
                 await TextToSpeech.speak({
                     text,
                     rate: rate,
                     pitch: pitch,
                     volume: 1.0,
-                    voice: voices.findIndex(v => v.voiceURI === voiceURI),
+                    voice: voiceIndex !== -1 ? voiceIndex : undefined,
+                    lang: lang || undefined,
                     category: 'playback'
                 });
                 setSpeaking(false);
@@ -66,6 +68,8 @@ export const useTTS = () => {
                 if (voiceURI) {
                     const selectedVoice = voices.find(v => v.voiceURI === voiceURI);
                     if (selectedVoice) utterance.voice = selectedVoice;
+                } else if (lang) {
+                    utterance.lang = lang;
                 }
                 utterance.rate = rate;
                 utterance.pitch = pitch;
