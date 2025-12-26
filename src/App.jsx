@@ -8,6 +8,7 @@ import './styles/components.css'
 function App() {
   const {
     handleSpeak,
+    toggleFavorite,
     toggleSettings,
     setSettings,
     settings,
@@ -78,7 +79,11 @@ function App() {
 
 
       <main>
-        <SymbolGrid onSpeak={handleSpeak} />
+        <SymbolGrid
+          onSpeak={handleSpeak}
+          onToggleFavorite={toggleFavorite}
+          settings={settings}
+        />
       </main>
 
       <SettingsPanel

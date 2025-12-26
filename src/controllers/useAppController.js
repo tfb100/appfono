@@ -14,6 +14,9 @@ export const useAppController = () => {
             settingsBtnPosition: 'header',
             vlibrasEnabled: false,
             headerPosition: 'top',
+            manualFavorites: [],
+            usageStats: {},
+            showFavoritesBar: true,
             ...JSON.parse(saved)
         } : {
             voiceURI: '',
@@ -21,7 +24,10 @@ export const useAppController = () => {
             theme: 'kids',
             settingsBtnPosition: 'header',
             vlibrasEnabled: false,
-            headerPosition: 'top'
+            headerPosition: 'top',
+            manualFavorites: [],
+            usageStats: {},
+            showFavoritesBar: true
         };
     });
 
@@ -41,6 +47,15 @@ export const useAppController = () => {
     }, []);
 
     const handleSpeak = async (symbol) => {
+        // Track usage
+        setSettings(prev => ({
+            ...prev,
+            usageStats: {
+                ...prev.usageStats,
+                [symbol.id]: (prev.usageStats[symbol.id] || 0) + 1
+            }
+        }));
+
         // Trigger VLibras if enabled
         if (settings.vlibrasEnabled) {
             vlibrasTranslate(symbol.text);
@@ -57,12 +72,26 @@ export const useAppController = () => {
         await speak(symbol.text, settings.voiceURI, settings.rate);
     };
 
+    const toggleFavorite = (id) => {
+        setSettings(prev => {
+            const manualFavorites = prev.manualFavorites || [];
+            const isFavorite = manualFavorites.includes(id);
+            return {
+                ...prev,
+                manualFavorites: isFavorite
+                    ? manualFavorites.filter(fid => fid !== id)
+                    : [...manualFavorites, id]
+            };
+        });
+    };
+
     const toggleSettings = (isOpen) => {
         setIsSettingsOpen(isOpen);
     };
 
     return {
         handleSpeak,
+        toggleFavorite,
         toggleSettings,
         setSettings,
         settings,

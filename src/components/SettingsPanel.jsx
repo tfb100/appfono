@@ -65,6 +65,15 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
             />
             <span>Ativar VLibras (Língua de Sinais)</span>
           </label>
+
+          <label className="setting-toggle" style={{ marginTop: '0.5rem' }}>
+            <input
+              type="checkbox"
+              checked={settings.showFavoritesBar}
+              onChange={(e) => setSettings(prev => ({ ...prev, showFavoritesBar: e.target.checked }))}
+            />
+            <span>Mostrar Barra de Favoritos</span>
+          </label>
         </div>
       </div>
     </div>
