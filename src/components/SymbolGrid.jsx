@@ -23,7 +23,7 @@ const SymbolGrid = ({ onSpeak, settings }) => {
       ? QuoteSymbols
         .filter(s => !manualIds.includes(s.id) && (usageStats[s.id] || 0) >= 3)
         .sort((a, b) => (usageStats[b.id] || 0) - (usageStats[a.id] || 0))
-        .slice(0, 4)
+        .slice(0, 7)
       : [];
 
     const frequentIds = frequent.map(s => s.id);
@@ -73,15 +73,16 @@ const SymbolGrid = ({ onSpeak, settings }) => {
           </div>
         </div>
       )}
-
-      <div className="grid-section">
-        {(sections.manual.length > 0 || sections.frequent.length > 0) && (
-          <h3 className="section-title">Todos os Botões</h3>
-        )}
-        <div className="symbol-grid">
-          {sections.others.map(s => renderCard(s))}
+      {settings.showAllSymbols && (
+        <div className="grid-section">
+          {(sections.manual.length > 0 || sections.frequent.length > 0) && (
+            <h3 className="section-title">Todos os Botões</h3>
+          )}
+          <div className="symbol-grid">
+            {sections.others.map(s => renderCard(s))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

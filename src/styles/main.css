@@ -44,6 +44,35 @@
   /* Yellow - People */
 }
 
+/* Pastel Palette */
+[data-palette="pastel"] {
+  --color-aac-social: #FFB3BA;
+  --color-aac-verb: #BAFFC9;
+  --color-aac-noun: #FFDFBA;
+  --color-aac-adj: #BAE1FF;
+  --color-aac-people: #FFFFBA;
+}
+
+/* High Contrast Palette */
+[data-palette="high-contrast"] {
+  --color-aac-social: #C62828;
+  --color-aac-verb: #2E7D32;
+  --color-aac-noun: #EF6C00;
+  --color-aac-adj: #0277BD;
+  --color-aac-people: #FBC02D;
+}
+
+/* Font Colors */
+[data-font-color="white"] {
+  --card-text-color: #ffffff;
+  --card-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+[data-font-color="black"] {
+  --card-text-color: #000000;
+  --card-text-shadow: none;
+}
+
 .app-background {
   position: fixed;
   top: 0;

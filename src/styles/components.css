@@ -112,8 +112,8 @@ main {
 
 .grid-container {
     padding: var(--spacing-md);
-    padding-top: calc(80px + env(safe-area-inset-top, 24px));
-    padding-bottom: calc(120px + env(safe-area-inset-bottom, 16px));
+    padding-top: calc(120px + env(safe-area-inset-top, 24px));
+    padding-bottom: calc(140px + env(safe-area-inset-bottom, 24px));
 }
 
 .grid-section {
@@ -153,7 +153,8 @@ main {
     border-radius: var(--radius-md);
     padding: var(--spacing-md);
     aspect-ratio: 1;
-    color: var(--color-text);
+    color: var(--card-text-color, #fff);
+    text-shadow: var(--card-text-shadow, none);
     transition: transform 0.1s, box-shadow 0.2s;
     overflow: hidden;
 
@@ -187,30 +188,22 @@ main {
 /* Category Colors */
 .category-social {
     background-color: var(--color-aac-social);
-    color: #fff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .category-verb {
     background-color: var(--color-aac-verb);
-    color: #fff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .category-noun {
     background-color: var(--color-aac-noun);
-    color: #000;
 }
 
 .category-adj {
     background-color: var(--color-aac-adj);
-    color: #fff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .category-people {
     background-color: var(--color-aac-people);
-    color: #000;
 }
 
 /* Settings Panel */
@@ -300,51 +293,6 @@ main {
     height: 20px;
     cursor: pointer;
     accent-color: var(--color-primary);
-}
-
-/* Favorites System */
-.grid-wrapper {
-    padding-top: calc(80px + env(safe-area-inset-top, 24px));
-}
-
-.favorite-bar {
-    padding: var(--spacing-md);
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: var(--radius-lg);
-    margin: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
-    border: 2px dashed rgba(0, 0, 0, 0.05);
-}
-
-.fav-section {
-    margin-bottom: var(--spacing-sm);
-}
-
-.fav-section:last-child {
-    margin-bottom: 0;
-}
-
-.fav-section-title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--color-text);
-    opacity: 0.6;
-    margin-bottom: var(--spacing-xs);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.fav-list {
-    display: flex;
-    gap: var(--spacing-sm);
-    overflow-x: auto;
-    padding-bottom: var(--spacing-xs);
-    scrollbar-width: none;
-}
-
-.fav-list::-webkit-scrollbar {
-    display: none;
 }
 
 /* Management list in settings */

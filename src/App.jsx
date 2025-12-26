@@ -2,6 +2,7 @@ import { Settings } from 'lucide-react'
 import SymbolGrid from './components/SymbolGrid'
 import SettingsPanel from './components/SettingsPanel'
 import { useAppController } from './controllers/useAppController'
+import { useEffect } from 'react'
 import './styles/main.css'
 import './styles/components.css'
 
@@ -38,6 +39,12 @@ function App() {
       window.logoClickCount = 0; // Reset
     }
   };
+
+  // Sync button palette
+  useEffect(() => {
+    document.body.setAttribute('data-palette', settings.buttonPalette || 'classic');
+    document.body.setAttribute('data-font-color', settings.fontColor || 'white');
+  }, [settings.buttonPalette, settings.fontColor]);
 
   const getSettingsBtnClass = () => {
     const pos = settings.settingsBtnPosition || 'header';

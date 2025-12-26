@@ -42,19 +42,27 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
 
           <div className="settings-section">
             <h3>Interface</h3>
-            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Barra de configurações</label>
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Paleta de Cores</label>
             <select
-              value={settings.settingsBtnPosition || 'header'}
-              onChange={(e) => setSettings(prev => ({ ...prev, settingsBtnPosition: e.target.value }))}
+              value={settings.buttonPalette || 'classic'}
+              onChange={(e) => setSettings(prev => ({ ...prev, buttonPalette: e.target.value }))}
               className="voice-select"
               style={{ marginBottom: '1rem' }}
             >
-              <option value="header">Cabeçalho (Padrão)</option>
-              <option value="float-tr">Flutuante: Canto Superior Direito</option>
-              <option value="float-br">Flutuante: Canto Inferior Direito</option>
-              <option value="float-bl">Flutuante: Canto Inferior Esquerdo</option>
-              <option value="float-tl">Flutuante: Canto Superior Esquerdo</option>
-              <option value="hidden">Oculto (Clique 3x no Leão)</option>
+              <option value="classic">Clássico (Fitzgerald)</option>
+              <option value="pastel">Pastel Suave</option>
+              <option value="high-contrast">Alto Contraste</option>
+            </select>
+
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Cor da Fonte</label>
+            <select
+              value={settings.fontColor || 'white'}
+              onChange={(e) => setSettings(prev => ({ ...prev, fontColor: e.target.value }))}
+              className="voice-select"
+              style={{ marginBottom: '1rem' }}
+            >
+              <option value="white">Branco</option>
+              <option value="black">Preto</option>
             </select>
 
             <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Posição da Barra de menu</label>
@@ -98,6 +106,16 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
               />
               <Zap size={16} style={{ marginRight: '4px' }} />
               <span>Mostrar Mais Usados</span>
+            </label>
+
+            <label className="setting-toggle" style={{ marginTop: '0.5rem' }}>
+              <input
+                type="checkbox"
+                checked={settings.showAllSymbols}
+                onChange={(e) => setSettings(prev => ({ ...prev, showAllSymbols: e.target.checked }))}
+              />
+              <span style={{ fontSize: '1.2rem', marginRight: '4px' }}>☰</span>
+              <span>Mostrar Todos os Botões</span>
             </label>
 
             {settings.showManualFavorites && (

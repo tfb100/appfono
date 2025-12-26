@@ -15,6 +15,9 @@ export const useAppController = () => {
             usageStats: {},
             showManualFavorites: true,
             showFrequentSymbols: true,
+            showAllSymbols: true,
+            buttonPalette: 'classic',
+            fontColor: 'white',
             ...JSON.parse(saved)
         } : {
             voiceURI: '',
@@ -26,7 +29,10 @@ export const useAppController = () => {
             manualFavorites: [],
             usageStats: {},
             showManualFavorites: true,
-            showFrequentSymbols: true
+            showFrequentSymbols: true,
+            showAllSymbols: true,
+            buttonPalette: 'classic',
+            fontColor: 'white'
         };
     });
 
