@@ -110,26 +110,31 @@ main {
     margin: 0 auto;
 }
 
-.grid-wrapper {
+.grid-container {
     padding: var(--spacing-md);
-    padding-top: var(--spacing-sm);
+    padding-top: calc(80px + env(safe-area-inset-top, 24px));
     padding-bottom: calc(120px + env(safe-area-inset-bottom, 16px));
+}
+
+.grid-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-text);
+    opacity: 0.9;
 }
 
 .symbol-grid {
     display: grid;
     gap: var(--spacing-md);
     grid-template-columns: repeat(2, 1fr);
-}
-
-.symbol-card-wrapper {
-    position: relative;
-    display: flex;
-}
-
-.symbol-card-wrapper .symbol-card {
-    flex: 1;
-    width: 100%;
 }
 
 @media (min-width: 600px) {
@@ -342,73 +347,21 @@ main {
     display: none;
 }
 
-.fav-button {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: var(--spacing-sm);
-    border-radius: var(--radius-md);
-    background: white;
-    min-width: 80px;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
-    position: relative;
-    border: none;
-}
-
-.fav-button:active {
-    transform: translateY(2px);
-    box-shadow: none;
-}
-
-.fav-icon {
-    margin-bottom: 4px;
-}
-
-.fav-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-}
-
-.fav-badge {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    background: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: var(--color-primary);
-}
-
-.fav-toggle {
-    position: absolute;
-    top: var(--spacing-xs);
-    right: var(--spacing-xs);
-    background: rgba(255, 255, 255, 0.6);
-    border: none;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2;
-    color: #ccc;
+/* Management list in settings */
+.fav-selection-list button {
     transition: all 0.2s;
+    cursor: pointer;
 }
 
-.fav-toggle.active {
-    color: var(--color-primary);
-    background: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.fav-selection-list button:hover {
+    transform: scale(1.02);
 }
 
-.fav-toggle:active {
-    transform: scale(0.9);
+.settings-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.settings-body::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
 }

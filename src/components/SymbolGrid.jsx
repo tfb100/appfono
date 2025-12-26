@@ -1,47 +1,86 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { QuoteSymbols } from '../models/QuoteSymbols.jsx';
-import { Star } from 'lucide-react';
-import FavoriteBar from './FavoriteBar';
+import { Star, Zap } from 'lucide-react';
 
-const SymbolGrid = ({ onSpeak, onToggleFavorite, settings }) => {
-  const isFavorite = (id) => (settings.manualFavorites || []).includes(id);
+const SymbolGrid = ({ onSpeak, settings }) => {
+  const {
+    manualFavorites = [],
+    usageStats = {},
+    showManualFavorites = true,
+    showFrequentSymbols = true
+  } = settings;
+
+  const sections = useMemo(() => {
+    // 1. Manual Favorites
+    const manual = showManualFavorites
+      ? QuoteSymbols.filter(s => manualFavorites.includes(s.id))
+      : [];
+
+    const manualIds = manual.map(s => s.id);
+
+    // 2. Frequent Symbols (usage >= 3, excluding manual, top 4)
+    const frequent = showFrequentSymbols
+      ? QuoteSymbols
+        .filter(s => !manualIds.includes(s.id) && (usageStats[s.id] || 0) >= 3)
+        .sort((a, b) => (usageStats[b.id] || 0) - (usageStats[a.id] || 0))
+        .slice(0, 4)
+      : [];
+
+    const frequentIds = frequent.map(s => s.id);
+
+    // 3. Others (the rest)
+    const others = QuoteSymbols.filter(s => !manualIds.includes(s.id) && !frequentIds.includes(s.id));
+
+    return { manual, frequent, others };
+  }, [manualFavorites, usageStats, showManualFavorites, showFrequentSymbols]);
+
+  const renderCard = (s, isSmall = false) => (
+    <button
+      key={s.id}
+      className={`symbol-card category-${s.category} ${isSmall ? 'small' : ''}`}
+      onClick={() => onSpeak(s)}
+      aria-label={`Falar: ${s.label}`}
+    >
+      <div className="symbol-icon-wrapper">
+        {React.isValidElement(s.icon) && s.icon.type !== 'span'
+          ? React.cloneElement(s.icon, {
+            size: isSmall ? 40 : 56,
+            strokeWidth: 2.5
+          })
+          : s.icon
+        }
+      </div>
+      <div className="symbol-label">{s.label}</div>
+    </button>
+  );
 
   return (
-    <div className="grid-wrapper">
-      <FavoriteBar settings={settings} onSpeak={onSpeak} />
-
-      <div className="symbol-grid">
-        {QuoteSymbols.map((s) => (
-          <div key={s.id} className="symbol-card-wrapper">
-            <button
-              className={`symbol-card category-${s.category}`}
-              onClick={() => onSpeak(s)}
-              aria-label={`Falar: ${s.label}`}
-            >
-              <div className="symbol-icon-wrapper">
-                {React.isValidElement(s.icon) && s.icon.type !== 'span'
-                  ? React.cloneElement(s.icon, {
-                    size: 56,
-                    strokeWidth: 2.5
-                  })
-                  : s.icon
-                }
-              </div>
-              <div className="symbol-label">{s.label}</div>
-            </button>
-
-            <button
-              className={`fav-toggle ${isFavorite(s.id) ? 'active' : ''}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleFavorite(s.id);
-              }}
-              aria-label={isFavorite(s.id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-            >
-              <Star size={20} fill={isFavorite(s.id) ? "currentColor" : "none"} />
-            </button>
+    <div className="grid-container">
+      {sections.manual.length > 0 && (
+        <div className="grid-section">
+          <h3 className="section-title"><Star size={20} fill="var(--color-primary)" /> Meus Favoritos</h3>
+          <div className="symbol-grid">
+            {sections.manual.map(s => renderCard(s))}
           </div>
-        ))}
+        </div>
+      )}
+
+      {sections.frequent.length > 0 && (
+        <div className="grid-section">
+          <h3 className="section-title"><Zap size={20} fill="#FFD700" /> Mais Usados</h3>
+          <div className="symbol-grid">
+            {sections.frequent.map(s => renderCard(s))}
+          </div>
+        </div>
+      )}
+
+      <div className="grid-section">
+        {(sections.manual.length > 0 || sections.frequent.length > 0) && (
+          <h3 className="section-title">Todos os Botões</h3>
+        )}
+        <div className="symbol-grid">
+          {sections.others.map(s => renderCard(s))}
+        </div>
       </div>
     </div>
   );

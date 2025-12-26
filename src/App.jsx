@@ -81,7 +81,6 @@ function App() {
       <main>
         <SymbolGrid
           onSpeak={handleSpeak}
-          onToggleFavorite={toggleFavorite}
           settings={settings}
         />
       </main>

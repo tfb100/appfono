@@ -11,12 +11,10 @@ export const useAppController = () => {
             voiceURI: '',
             rate: 1,
             theme: 'kids',
-            settingsBtnPosition: 'header',
-            vlibrasEnabled: false,
-            headerPosition: 'top',
             manualFavorites: [],
             usageStats: {},
-            showFavoritesBar: true,
+            showManualFavorites: true,
+            showFrequentSymbols: true,
             ...JSON.parse(saved)
         } : {
             voiceURI: '',
@@ -27,7 +25,8 @@ export const useAppController = () => {
             headerPosition: 'top',
             manualFavorites: [],
             usageStats: {},
-            showFavoritesBar: true
+            showManualFavorites: true,
+            showFrequentSymbols: true
         };
     });
 
