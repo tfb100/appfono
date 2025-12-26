@@ -8,8 +8,8 @@ const SymbolGrid = ({ onSpeak }) => {
         <button
           key={s.id}
           className={`symbol-card category-${s.category}`}
-          onClick={() => onSpeak(s.text)}
-          aria-label={`Falar: ${s.text}`}
+          onClick={() => onSpeak(s)}
+          aria-label={`Falar: ${s.label}`}
         >
           <div className="symbol-icon-wrapper">
             {React.isValidElement(s.icon) && s.icon.type !== 'span'

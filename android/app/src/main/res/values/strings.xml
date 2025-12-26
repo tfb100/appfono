@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Fono Kids</string>
+    <string name="title_activity_main">Fono Kids</string>
+    <string name="package_name">com.thiago.fonokids</string>
+    <string name="custom_url_scheme">com.thiago.fonokids</string>
+</resources>

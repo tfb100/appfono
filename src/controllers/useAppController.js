@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTTS } from '../hooks/useTTS';
+import { useAudioPlayer } from '../hooks/useAudioPlayer';
 
 export const useAppController = () => {
     const { speak, voices, cancel } = useTTS();
+    const { playAudio } = useAudioPlayer();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     const [settings, setSettings] = useState(() => {
@@ -32,8 +34,16 @@ export const useAppController = () => {
         document.body.setAttribute('data-theme', 'kids');
     }, []);
 
-    const handleSpeak = (text) => {
-        speak(text, settings.voiceURI, settings.rate);
+    const handleSpeak = async (symbol) => {
+        if (symbol.audio) {
+            try {
+                await playAudio(symbol.audio);
+                return;
+            } catch (error) {
+                console.warn(`Failed to play MP3 for ${symbol.label}, falling back to TTS`, error);
+            }
+        }
+        speak(symbol.text, settings.voiceURI, settings.rate);
     };
 
     const toggleSettings = (isOpen) => {
