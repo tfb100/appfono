@@ -30,7 +30,9 @@ export const translations = {
         favorites: "Favoritos",
         mostUsed: "Mais Usados",
         allSymbols: "Todos os Símbolos",
-        openSettings: "Abrir configurações"
+        openSettings: "Abrir configurações",
+        supportTitle: "💛 Apoie o Todos falam",
+        supportText: "Este aplicativo é gratuito e feito com carinho para promover inclusão. Se você acredita no nosso propósito, considere apoiar com uma contribuição voluntária. Cada ajuda nos permite continuar melhorando. 💛"
     },
     en: {
         appTitle: "Everyone speaks",
@@ -63,7 +65,9 @@ export const translations = {
         favorites: "Favorites",
         mostUsed: "Most Used",
         allSymbols: "All Symbols",
-        openSettings: "Open settings"
+        openSettings: "Open settings",
+        supportTitle: "💛 Support Everyone Speaks",
+        supportText: "This app is free and made with love to promote inclusion. If you believe in our purpose, consider supporting us with a voluntary contribution. Every bit of help allows us to keep improving. 💛"
     },
     es: {
         appTitle: "Todos hablan",
@@ -91,11 +95,13 @@ export const translations = {
         manageShortcuts: "Gestionar Atajos",
         showFavorites: "Mostrar Favoritos",
         showFrequent: "Mostrar Más Usados",
-        showAll: "Mostrar Todos los Botones",
+        showAll: "Mostrar Todos os Botões",
         markFavorites: "Marcar botones favoritos:",
         favorites: "Favoritos",
         mostUsed: "Más Usados",
-        allSymbols: "Todos los Símbolos",
-        openSettings: "Abrir configuraciones"
+        allSymbols: "Todos os Símbolos",
+        openSettings: "Abrir configuraciones",
+        supportTitle: "💛 Apoya a Todos Hablan",
+        supportText: "Esta aplicación es gratuita y está hecha con cariño para promover la inclusión. Si crees en nuestro propósito, considera apoyarnos con una contribución voluntaria. Cada ayuda nos permite seguir mejorando. 💛"
     }
 };

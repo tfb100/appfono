@@ -122,7 +122,8 @@ main {
 
 .grid-container {
     padding: var(--spacing-md);
-    padding-top: calc(120px + env(safe-area-inset-top, 24px));
+    padding-top: calc(150px + env(safe-area-inset-top, 24px));
+    /* Increased to leave breath with header */
     padding-bottom: calc(140px + env(safe-area-inset-bottom, 24px));
 }
 

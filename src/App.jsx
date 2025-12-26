@@ -1,6 +1,7 @@
 import { Settings } from 'lucide-react'
 import SymbolGrid from './components/SymbolGrid'
 import SettingsPanel from './components/SettingsPanel'
+import SupportBanner from './components/SupportBanner'
 import { useAppController } from './controllers/useAppController'
 import { useEffect } from 'react'
 import { translations } from './utils/translations'
@@ -78,6 +79,7 @@ function App() {
 
 
       <main>
+        <SupportBanner language={settings.language || 'pt'} />
         <SymbolGrid
           onSpeak={handleSpeak}
           settings={settings}
