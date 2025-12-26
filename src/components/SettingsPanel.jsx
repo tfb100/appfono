@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Star, Zap } from 'lucide-react';
 import { QuoteSymbols } from '../models/QuoteSymbols.jsx';
+import { translations } from '../utils/translations';
 
 const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
   if (!isOpen) return null;
@@ -13,70 +14,85 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
     setSettings(prev => ({ ...prev, manualFavorites: updated }));
   };
 
+  const t = translations[settings.language || 'pt'];
+
   return (
     <div className="settings-overlay">
       <div className="settings-modal">
         <div className="settings-header">
-          <h2>Configurações</h2>
-          <button onClick={onClose} aria-label="Fechar configurações" className="close-btn">
+          <h2>{t.settingsTitle}</h2>
+          <button onClick={onClose} aria-label={t.close} className="close-btn">
             <X size={24} />
           </button>
         </div>
 
         <div className="settings-body" style={{ maxHeight: '70vh', overflowY: 'auto', paddingRight: '10px' }}>
           <div className="settings-section">
-            <h3>Voz (TTS)</h3>
+            <h3>{t.voiceSettings}</h3>
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.voice}</label>
             <select
               value={settings.voiceURI}
               onChange={(e) => setSettings(prev => ({ ...prev, voiceURI: e.target.value }))}
               className="voice-select"
+              style={{ marginBottom: '1rem' }}
             >
-              <option value="">Padrão do Dispositivo</option>
+              <option value="">{t.white} (System Default)</option>
               {voices.map(v => (
                 <option key={v.voiceURI} value={v.voiceURI}>
                   {v.name.slice(0, 30)} ({v.lang})
                 </option>
               ))}
             </select>
+
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.speed}</label>
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={settings.rate || 1}
+              onChange={(e) => setSettings(prev => ({ ...prev, rate: parseFloat(e.target.value) }))}
+              className="speed-range"
+            />
           </div>
 
           <div className="settings-section">
-            <h3>Interface</h3>
-            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Paleta de Cores</label>
+            <h3>{t.visualSettings}</h3>
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.palette}</label>
             <select
               value={settings.buttonPalette || 'classic'}
               onChange={(e) => setSettings(prev => ({ ...prev, buttonPalette: e.target.value }))}
               className="voice-select"
               style={{ marginBottom: '1rem' }}
             >
-              <option value="classic">Clássico (Fitzgerald)</option>
-              <option value="pastel">Pastel Suave</option>
-              <option value="high-contrast">Alto Contraste</option>
+              <option value="classic">{t.classic}</option>
+              <option value="pastel">{t.pastel}</option>
+              <option value="high-contrast">{t.highContrast}</option>
             </select>
 
-            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Cor da Fonte</label>
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.fontColor}</label>
             <select
               value={settings.fontColor || 'white'}
               onChange={(e) => setSettings(prev => ({ ...prev, fontColor: e.target.value }))}
               className="voice-select"
               style={{ marginBottom: '1rem' }}
             >
-              <option value="white">Branco</option>
-              <option value="black">Preto</option>
+              <option value="white">{t.white}</option>
+              <option value="black">{t.black}</option>
             </select>
 
-            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Posição da Barra de menu</label>
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.barPosition}</label>
             <select
               value={settings.headerPosition || 'top'}
               onChange={(e) => setSettings(prev => ({ ...prev, headerPosition: e.target.value }))}
               className="voice-select"
               style={{ marginBottom: '1rem' }}
             >
-              <option value="top">Topo</option>
-              <option value="bottom">Inferior</option>
+              <option value="top">{t.top}</option>
+              <option value="bottom">{t.bottom}</option>
             </select>
 
-            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Idioma</label>
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.language}</label>
             <select
               value={settings.language || 'pt'}
               onChange={(e) => setSettings(prev => ({ ...prev, language: e.target.value }))}
@@ -94,12 +110,12 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                 checked={settings.vlibrasEnabled}
                 onChange={(e) => setSettings(prev => ({ ...prev, vlibrasEnabled: e.target.checked }))}
               />
-              <span>Ativar VLibras</span>
+              <span>{t.vlibras}</span>
             </label>
           </div>
 
           <div className="settings-section">
-            <h3>Gerenciar Atalhos</h3>
+            <h3>{t.manageShortcuts}</h3>
             <label className="setting-toggle">
               <input
                 type="checkbox"
@@ -107,7 +123,7 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                 onChange={(e) => setSettings(prev => ({ ...prev, showManualFavorites: e.target.checked }))}
               />
               <Star size={16} style={{ marginRight: '4px' }} />
-              <span>Mostrar Favoritos</span>
+              <span>{t.showFavorites}</span>
             </label>
 
             <label className="setting-toggle" style={{ marginTop: '0.5rem' }}>
@@ -117,7 +133,7 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                 onChange={(e) => setSettings(prev => ({ ...prev, showFrequentSymbols: e.target.checked }))}
               />
               <Zap size={16} style={{ marginRight: '4px' }} />
-              <span>Mostrar Mais Usados</span>
+              <span>{t.showFrequent}</span>
             </label>
 
             <label className="setting-toggle" style={{ marginTop: '0.5rem' }}>
@@ -127,12 +143,12 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                 onChange={(e) => setSettings(prev => ({ ...prev, showAllSymbols: e.target.checked }))}
               />
               <span style={{ fontSize: '1.2rem', marginRight: '4px' }}>☰</span>
-              <span>Mostrar Todos os Botões</span>
+              <span>{t.showAll}</span>
             </label>
 
             {settings.showManualFavorites && (
               <div className="favorites-manager" style={{ marginTop: '1rem' }}>
-                <p style={{ fontSize: '0.85rem', opacity: 0.7, marginBottom: '0.5rem' }}>Marque os botões favoritos:</p>
+                <p style={{ fontSize: '0.85rem', opacity: 0.7, marginBottom: '0.5rem' }}>{t.markFavorites}</p>
                 <div className="fav-selection-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
                   {QuoteSymbols.map(s => {
                     const currentLang = settings.language || 'pt';

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { QuoteSymbols } from '../models/QuoteSymbols.jsx';
 import { Star, Zap } from 'lucide-react';
+import { translations } from '../utils/translations';
 
 const SymbolGrid = ({ onSpeak, settings }) => {
   const {
@@ -59,11 +60,13 @@ const SymbolGrid = ({ onSpeak, settings }) => {
     );
   };
 
+  const t = translations[settings.language || 'pt'];
+
   return (
     <div className="grid-container">
       {sections.manual.length > 0 && (
         <div className="grid-section">
-          <h3 className="section-title"><Star size={20} fill="var(--color-primary)" /> Meus Favoritos</h3>
+          <h3 className="section-title"><Star size={20} fill="var(--color-primary)" /> {t.favorites}</h3>
           <div className="symbol-grid">
             {sections.manual.map(s => renderCard(s))}
           </div>
@@ -72,7 +75,7 @@ const SymbolGrid = ({ onSpeak, settings }) => {
 
       {sections.frequent.length > 0 && (
         <div className="grid-section">
-          <h3 className="section-title"><Zap size={20} fill="#FFD700" /> Mais Usados</h3>
+          <h3 className="section-title"><Zap size={20} fill="#FFD700" /> {t.mostUsed}</h3>
           <div className="symbol-grid">
             {sections.frequent.map(s => renderCard(s))}
           </div>
@@ -81,7 +84,7 @@ const SymbolGrid = ({ onSpeak, settings }) => {
       {settings.showAllSymbols && (
         <div className="grid-section">
           {(sections.manual.length > 0 || sections.frequent.length > 0) && (
-            <h3 className="section-title">Todos os Botões</h3>
+            <h3 className="section-title">{t.allSymbols}</h3>
           )}
           <div className="symbol-grid">
             {sections.others.map(s => renderCard(s))}

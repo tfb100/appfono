@@ -3,6 +3,7 @@ import SymbolGrid from './components/SymbolGrid'
 import SettingsPanel from './components/SettingsPanel'
 import { useAppController } from './controllers/useAppController'
 import { useEffect } from 'react'
+import { translations } from './utils/translations'
 import './styles/main.css'
 import './styles/components.css'
 
@@ -47,19 +48,21 @@ function App() {
   }, [settings.buttonPalette, settings.fontColor]);
 
 
+  const t = translations[settings.language || 'pt'];
+
   return (
     <div className="app-container">
       <div className="app-background" />
       <header className={`app-header pos-${settings.headerPosition || 'top'}`}>
         <div className="logo-area" onClick={handleLogoClick} style={{ cursor: 'pointer', userSelect: 'none' }}>
           <span className="logo-icon">🦁</span>
-          <h1>Fono Kids</h1>
+          <h1>{t.appTitle}</h1>
         </div>
 
         <button
           className="settings-btn"
           onClick={() => toggleSettings(true)}
-          aria-label="Abrir configurações"
+          aria-label={t.openSettings}
         >
           <Settings size={28} />
         </button>
