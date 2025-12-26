@@ -31,7 +31,7 @@ export const translations = {
         mostUsed: "Mais Usados",
         allSymbols: "Todos os Símbolos",
         openSettings: "Abrir configurações",
-        supportTitle: "💛 Apoie o Todos falam",
+        supportTitle: "Apoie o Todos falam",
         supportText: "Este aplicativo é gratuito e feito com carinho para promover inclusão. Se você acredita no nosso propósito, considere apoiar com uma contribuição voluntária. Cada ajuda nos permite continuar melhorando. 💛"
     },
     en: {

@@ -11,7 +11,7 @@ const SupportFooter = ({ language, onClick }) => {
                 <Heart size={16} fill="#FFB703" color="#FFB703" className="heart-pulse-mini" />
                 <span className="footer-title">{t.supportTitle}</span>
                 <span className="footer-divider">•</span>
-                <span className="footer-text">{t.supportText.substring(0, 80)}...</span>
+                <span className="footer-text">{t.supportText}</span>
             </div>
         </footer>
     );
