@@ -4,6 +4,8 @@ import SettingsPanel from './components/SettingsPanel'
 import { useAppController } from './controllers/useAppController'
 import { useEffect } from 'react'
 import { translations } from './utils/translations'
+import logoKids from './assets/logo-kids.png'
+import logoNeutral from './assets/logo-neutral.png'
 import './styles/main.css'
 import './styles/components.css'
 
@@ -55,7 +57,13 @@ function App() {
       <div className="app-background" />
       <header className={`app-header pos-${settings.headerPosition || 'top'}`}>
         <div className="logo-area" onClick={handleLogoClick} style={{ cursor: 'pointer', userSelect: 'none' }}>
-          {settings.theme === 'kids' && <span className="logo-icon">🦁</span>}
+          <div className="logo-wrapper">
+            <img
+              src={settings.theme === 'kids' ? logoKids : logoNeutral}
+              alt="Logo"
+              className="app-logo-img"
+            />
+          </div>
           <h1>{t.appTitle}</h1>
         </div>
 
