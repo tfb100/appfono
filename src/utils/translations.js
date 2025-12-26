@@ -1,6 +1,6 @@
 export const translations = {
     pt: {
-        appTitle: "Fono Kids",
+        appTitle: "Todos falam",
         settingsTitle: "Configurações",
         close: "Fechar",
         voiceSettings: "Configurações de Voz",
@@ -18,6 +18,9 @@ export const translations = {
         fontColor: "Cor da Fonte",
         white: "Branco",
         black: "Preto",
+        theme: "Tema",
+        kids: "Crianças",
+        neutral: "Neutro",
         vlibras: "Ativar VLibras",
         manageShortcuts: "Gerenciar Atalhos",
         showFavorites: "Mostrar Favoritos",
@@ -30,7 +33,7 @@ export const translations = {
         openSettings: "Abrir configurações"
     },
     en: {
-        appTitle: "Fono Kids",
+        appTitle: "Everyone speaks",
         settingsTitle: "Settings",
         close: "Close",
         voiceSettings: "Voice Settings",
@@ -48,6 +51,9 @@ export const translations = {
         fontColor: "Font Color",
         white: "White",
         black: "Black",
+        theme: "Theme",
+        kids: "Kids",
+        neutral: "Neutral",
         vlibras: "Enable VLibras",
         manageShortcuts: "Manage Shortcuts",
         showFavorites: "Show Favorites",
@@ -60,7 +66,7 @@ export const translations = {
         openSettings: "Open settings"
     },
     es: {
-        appTitle: "Fono Kids",
+        appTitle: "Todos hablan",
         settingsTitle: "Configuraciones",
         close: "Cerrar",
         voiceSettings: "Ajustes de Voz",
@@ -78,6 +84,9 @@ export const translations = {
         fontColor: "Color de Fuente",
         white: "Blanco",
         black: "Negro",
+        theme: "Tema",
+        kids: "Niños",
+        neutral: "Neutro",
         vlibras: "Activar VLibras",
         manageShortcuts: "Gestionar Atajos",
         showFavorites: "Mostrar Favoritos",

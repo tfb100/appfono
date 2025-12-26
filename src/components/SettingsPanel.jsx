@@ -58,6 +58,17 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
 
           <div className="settings-section">
             <h3>{t.visualSettings}</h3>
+            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.theme}</label>
+            <select
+              value={settings.theme || 'neutral'}
+              onChange={(e) => setSettings(prev => ({ ...prev, theme: e.target.value }))}
+              className="voice-select"
+              style={{ marginBottom: '1rem' }}
+            >
+              <option value="kids">{t.kids}</option>
+              <option value="neutral">{t.neutral}</option>
+            </select>
+
             <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.palette}</label>
             <select
               value={settings.buttonPalette || 'classic'}

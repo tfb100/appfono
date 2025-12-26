@@ -67,10 +67,10 @@ export const useAppController = () => {
         localStorage.setItem('fono-settings', JSON.stringify(settings));
     }, [settings]);
 
-    // Force kids theme logic
+    // Theme Persistence
     useEffect(() => {
-        document.body.setAttribute('data-theme', 'kids');
-    }, []);
+        document.body.setAttribute('data-theme', settings.theme || 'neutral');
+    }, [settings.theme]);
 
     const handleSpeak = async (symbol) => {
         // Track usage

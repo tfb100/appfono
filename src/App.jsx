@@ -55,7 +55,7 @@ function App() {
       <div className="app-background" />
       <header className={`app-header pos-${settings.headerPosition || 'top'}`}>
         <div className="logo-area" onClick={handleLogoClick} style={{ cursor: 'pointer', userSelect: 'none' }}>
-          <span className="logo-icon">🦁</span>
+          {settings.theme === 'kids' && <span className="logo-icon">🦁</span>}
           <h1>{t.appTitle}</h1>
         </div>
 
