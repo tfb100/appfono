@@ -34,15 +34,12 @@
 }
 
 .logo-wrapper {
-    width: 44px;
-    height: 44px;
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: white;
-    border-radius: var(--radius-sm);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .app-logo-img {
