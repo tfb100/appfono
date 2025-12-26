@@ -9,10 +9,22 @@
     /* Honey Yellow */
     box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
     color: white;
-    position: sticky;
-    top: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
     z-index: 100;
-    border-bottom: none;
+}
+
+.app-header.pos-top {
+    top: 0;
+    padding-top: calc(var(--spacing-md) + env(safe-area-inset-top, 24px));
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.app-header.pos-bottom {
+    bottom: 0;
+    padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 16px));
+    box-shadow: 0 -4px 0 rgba(0, 0, 0, 0.1);
 }
 
 .logo-area {
@@ -104,7 +116,8 @@ main {
     gap: var(--spacing-md);
     grid-template-columns: repeat(2, 1fr);
     padding: var(--spacing-md);
-    padding-bottom: 120px;
+    padding-top: calc(80px + env(safe-area-inset-top, 24px));
+    padding-bottom: calc(120px + env(safe-area-inset-bottom, 16px));
 }
 
 @media (min-width: 600px) {

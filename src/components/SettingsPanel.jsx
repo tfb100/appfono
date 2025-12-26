@@ -46,6 +46,17 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
             <option value="hidden">Oculto (Clique 3x no Leão)</option>
           </select>
 
+          <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>Posição da Barra</label>
+          <select
+            value={settings.headerPosition || 'top'}
+            onChange={(e) => setSettings(prev => ({ ...prev, headerPosition: e.target.value }))}
+            className="voice-select"
+            style={{ marginBottom: '1rem' }}
+          >
+            <option value="top">Topo</option>
+            <option value="bottom">Fundo</option>
+          </select>
+
           <label className="setting-toggle">
             <input
               type="checkbox"

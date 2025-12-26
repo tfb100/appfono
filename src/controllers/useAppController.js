@@ -13,13 +13,15 @@ export const useAppController = () => {
             theme: 'kids',
             settingsBtnPosition: 'header',
             vlibrasEnabled: false,
+            headerPosition: 'top',
             ...JSON.parse(saved)
         } : {
             voiceURI: '',
             rate: 1,
             theme: 'kids',
             settingsBtnPosition: 'header',
-            vlibrasEnabled: false
+            vlibrasEnabled: false,
+            headerPosition: 'top'
         };
     });
 

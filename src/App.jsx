@@ -47,7 +47,7 @@ function App() {
   return (
     <div className="app-container">
       <div className="app-background" />
-      <header className="app-header">
+      <header className={`app-header pos-${settings.headerPosition || 'top'}`}>
         <div className="logo-area" onClick={handleLogoClick} style={{ cursor: 'pointer', userSelect: 'none' }}>
           <span className="logo-icon">🦁</span>
           <h1>Fono Kids</h1>
