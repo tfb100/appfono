@@ -36,6 +36,7 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
             value={settings.settingsBtnPosition || 'header'}
             onChange={(e) => setSettings(prev => ({ ...prev, settingsBtnPosition: e.target.value }))}
             className="voice-select"
+            style={{ marginBottom: '1rem' }}
           >
             <option value="header">Cabeçalho (Padrão)</option>
             <option value="float-tr">Flutuante: Canto Superior Direito</option>
@@ -44,6 +45,15 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
             <option value="float-tl">Flutuante: Canto Superior Esquerdo</option>
             <option value="hidden">Oculto (Clique 3x no Leão)</option>
           </select>
+
+          <label className="setting-toggle">
+            <input
+              type="checkbox"
+              checked={settings.vlibrasEnabled}
+              onChange={(e) => setSettings(prev => ({ ...prev, vlibrasEnabled: e.target.checked }))}
+            />
+            <span>Ativar VLibras (Língua de Sinais)</span>
+          </label>
         </div>
       </div>
     </div>
