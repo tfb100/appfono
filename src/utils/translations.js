@@ -1,6 +1,6 @@
 export const translations = {
     pt: {
-        appTitle: "Todos falam",
+        appTitle: "Comunica+",
         settingsTitle: "Configurações",
         close: "Fechar",
         voiceSettings: "Configurações de Voz",
@@ -11,7 +11,7 @@ export const translations = {
         top: "Topo",
         bottom: "Inferior",
         language: "Idioma",
-        palette: "Paleta de Cores",
+        palette: "Paleta de Colores",
         classic: "Clássico",
         pastel: "Pastel",
         highContrast: "Alto Contraste",
@@ -31,11 +31,11 @@ export const translations = {
         mostUsed: "Mais Usados",
         allSymbols: "Todos os Símbolos",
         openSettings: "Abrir configurações",
-        supportTitle: "Apoie o Todos falam",
+        supportTitle: "Apoie o Comunica+",
         supportText: "Este aplicativo é gratuito e feito com carinho para promover inclusão. Se você acredita no nosso propósito, considere apoiar com uma contribuição voluntária. Cada ajuda nos permite continuar melhorando. 💛"
     },
     en: {
-        appTitle: "Everyone speaks",
+        appTitle: "Comunica+",
         settingsTitle: "Settings",
         close: "Close",
         voiceSettings: "Voice Settings",
@@ -66,11 +66,11 @@ export const translations = {
         mostUsed: "Most Used",
         allSymbols: "All Symbols",
         openSettings: "Open settings",
-        supportTitle: "💛 Support Everyone Speaks",
+        supportTitle: "💛 Support Comunica+",
         supportText: "This app is free and made with love to promote inclusion. If you believe in our purpose, consider supporting us with a voluntary contribution. Every bit of help allows us to keep improving. 💛"
     },
     es: {
-        appTitle: "Todos hablan",
+        appTitle: "Comunica+",
         settingsTitle: "Configuraciones",
         close: "Cerrar",
         voiceSettings: "Ajustes de Voz",
@@ -101,7 +101,7 @@ export const translations = {
         mostUsed: "Más Usados",
         allSymbols: "Todos os Símbolos",
         openSettings: "Abrir configuraciones",
-        supportTitle: "💛 Apoya a Todos Hablan",
+        supportTitle: "💛 Apoya a Comunica+",
         supportText: "Esta aplicación es gratuita y está hecha con cariño para promover la inclusión. Si crees en nuestro propósito, considera apoyarnos con una contribución voluntaria. Cada ayuda nos permite seguir mejorando. 💛"
     }
 };
