@@ -21,11 +21,6 @@
     box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
 }
 
-.app-header.pos-bottom {
-    bottom: 0;
-    padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom, 16px));
-    box-shadow: 0 -4px 0 rgba(0, 0, 0, 0.1);
-}
 
 .logo-area {
     display: flex;

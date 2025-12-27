@@ -32,10 +32,10 @@ export const translations = {
         allSymbols: "Todos os Símbolos",
         openSettings: "Abrir configurações",
         supportTitle: "Apoie o Comunica+",
-        supportText: "Este aplicativo é gratuito e feito com carinho para promover inclusão. Se você acredita no nosso propósito, considere apoiar com uma contribuição voluntária. Cada ajuda nos permite continuar melhorando. 💛"
+        supportText: "Este aplicativo é gratuito e feito com carinho para promover inclusão. Se você acredita no nosso propósito, considere apoiar com uma contribuição voluntária. Cada ajuda nos permite continuar melhorando."
     },
     en: {
-        appTitle: "Comunica+",
+        appTitle: "Communicate+",
         settingsTitle: "Settings",
         close: "Close",
         voiceSettings: "Voice Settings",
@@ -66,8 +66,8 @@ export const translations = {
         mostUsed: "Most Used",
         allSymbols: "All Symbols",
         openSettings: "Open settings",
-        supportTitle: "💛 Support Comunica+",
-        supportText: "This app is free and made with love to promote inclusion. If you believe in our purpose, consider supporting us with a voluntary contribution. Every bit of help allows us to keep improving. 💛"
+        supportTitle: "Support Communicate+",
+        supportText: "This app is free and made with love to promote inclusion. If you believe in our purpose, consider supporting us with a voluntary contribution. Every bit of help allows us to keep improving."
     },
     es: {
         appTitle: "Comunica+",
@@ -101,7 +101,7 @@ export const translations = {
         mostUsed: "Más Usados",
         allSymbols: "Todos os Símbolos",
         openSettings: "Abrir configuraciones",
-        supportTitle: "💛 Apoya a Comunica+",
-        supportText: "Esta aplicación es gratuita y está hecha con cariño para promover la inclusión. Si crees en nuestro propósito, considera apoyarnos con una contribución voluntaria. Cada ayuda nos permite seguir mejorando. 💛"
+        supportTitle: "Apoya a Comunica+",
+        supportText: "Esta aplicación es gratuita y está hecha con cariño para promover la inclusión. Si crees en nuestro propósito, considera apoyarnos con una contribución voluntaria. Cada ayuda nos permite seguir mejorando."
     }
 };

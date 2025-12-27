@@ -92,17 +92,6 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
               <option value="black">{t.black}</option>
             </select>
 
-            <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.barPosition}</label>
-            <select
-              value={settings.headerPosition || 'top'}
-              onChange={(e) => setSettings(prev => ({ ...prev, headerPosition: e.target.value }))}
-              className="voice-select"
-              style={{ marginBottom: '1rem' }}
-            >
-              <option value="top">{t.top}</option>
-              <option value="bottom">{t.bottom}</option>
-            </select>
-
             <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.language}</label>
             <select
               value={settings.language || 'pt'}
