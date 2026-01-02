@@ -6,8 +6,7 @@ import { useVLibras } from '../hooks/useVLibras';
 export const useAppController = () => {
     const [settings, setSettings] = useState(() => {
         const saved = localStorage.getItem('fono-settings');
-        // Default to voice only settings, hardcoding kids theme
-        return saved ? {
+        const defaultSettings = {
             voiceURI: '',
             rate: 1,
             theme: 'kids',
@@ -19,20 +18,25 @@ export const useAppController = () => {
             buttonPalette: 'classic',
             fontColor: 'white',
             language: 'pt',
-            ...JSON.parse(saved)
-        } : {
-            voiceURI: '',
-            rate: 1,
-            theme: 'kids',
-            manualFavorites: [],
-            usageStats: {},
-            showManualFavorites: true,
-            showFrequentSymbols: true,
-            showAllSymbols: true,
-            buttonPalette: 'classic',
-            fontColor: 'white',
-            language: 'pt'
+            customCards: []
         };
+
+        if (!saved) return defaultSettings;
+
+        try {
+            const parsed = JSON.parse(saved);
+            // Sanitize custom cards icons (must be strings)
+            if (parsed.customCards && Array.isArray(parsed.customCards)) {
+                parsed.customCards = parsed.customCards.map(card => ({
+                    ...card,
+                    icon: typeof card.icon === 'string' ? card.icon : 'Plus'
+                }));
+            }
+            return { ...defaultSettings, ...parsed };
+        } catch (e) {
+            console.error('Failed to parse settings', e);
+            return defaultSettings;
+        }
     });
 
     const { speak, voices, cancel } = useTTS();

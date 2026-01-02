@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Star, Zap } from 'lucide-react';
+import { X, Star, Zap, Plus, Trash2 } from 'lucide-react';
 import { QuoteSymbols } from '../models/QuoteSymbols.jsx';
 import { translations } from '../utils/translations';
 
@@ -178,6 +178,94 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                 </div>
               </div>
             )}
+          </div>
+
+          <div className="settings-section">
+            <h3>{t.customCards}</h3>
+            <div className="add-card-form" style={{ marginBottom: '1rem' }}>
+              <input
+                type="text"
+                placeholder={t.cardText}
+                className="voice-select"
+                style={{ marginBottom: '0.5rem', width: '100%', boxSizing: 'border-box' }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && e.target.value.trim()) {
+                    const text = e.target.value.trim();
+                    const newCard = {
+                      id: `custom-${Date.now()}`,
+                      label: text,
+                      text: text,
+                      category: 'custom',
+                      icon: 'Plus'
+                    };
+                    setSettings(prev => ({
+                      ...prev,
+                      customCards: [...(prev.customCards || []), newCard]
+                    }));
+                    e.target.value = '';
+                  }
+                }}
+              />
+              <p style={{ fontSize: '0.75rem', opacity: 0.6 }}>Precione Enter para salvar</p>
+            </div>
+
+            <div className="custom-cards-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '8px' }}>
+              {(settings.customCards || []).map(card => (
+                <div
+                  key={card.id}
+                  style={{
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    border: '1px solid #ddd',
+                    background: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '8px',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {card.label}
+                  </span>
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <button
+                      onClick={() => toggleManualFavorite(card.id)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: (settings.manualFavorites || []).includes(card.id) ? 'var(--color-primary)' : '#ccc',
+                        cursor: 'pointer',
+                        padding: '4px',
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                      aria-label={t.favorites}
+                    >
+                      <Star size={18} fill={(settings.manualFavorites || []).includes(card.id) ? 'var(--color-primary)' : 'none'} />
+                    </button>
+                    <button
+                      onClick={() => setSettings(prev => ({
+                        ...prev,
+                        customCards: prev.customCards.filter(c => c.id !== card.id)
+                      }))}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#ff4d4f',
+                        cursor: 'pointer',
+                        padding: '4px',
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                      aria-label={t.delete}
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

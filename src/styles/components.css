@@ -211,6 +211,24 @@ main {
     background-color: var(--color-aac-people);
 }
 
+.category-custom {
+    background-color: #e3f2fd;
+    border-bottom: 4px solid #2196f3;
+}
+
+.category-custom .symbol-icon-wrapper {
+    color: #1565c0;
+}
+
+.category-custom .symbol-label {
+    color: #1565c0;
+}
+
+.category-custom:active {
+    transform: translateY(2px);
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.2);
+}
+
 /* Settings Panel */
 .settings-overlay {
     position: fixed;

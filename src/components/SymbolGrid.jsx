@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { QuoteSymbols } from '../models/QuoteSymbols.jsx';
-import { Star, Zap } from 'lucide-react';
+import { Star, Zap, Plus, MessageSquare } from 'lucide-react';
 import { translations } from '../utils/translations';
 
 const SymbolGrid = ({ onSpeak, settings }) => {
@@ -12,16 +12,18 @@ const SymbolGrid = ({ onSpeak, settings }) => {
   } = settings;
 
   const sections = useMemo(() => {
+    const allSymbols = [...QuoteSymbols, ...(settings.customCards || [])];
+
     // 1. Manual Favorites
     const manual = showManualFavorites
-      ? QuoteSymbols.filter(s => manualFavorites.includes(s.id))
+      ? allSymbols.filter(s => manualFavorites.includes(s.id))
       : [];
 
     const manualIds = manual.map(s => s.id);
 
     // 2. Frequent Symbols (usage >= 3, excluding manual, top 4)
     const frequent = showFrequentSymbols
-      ? QuoteSymbols
+      ? allSymbols
         .filter(s => !manualIds.includes(s.id) && (usageStats[s.id] || 0) >= 3)
         .sort((a, b) => (usageStats[b.id] || 0) - (usageStats[a.id] || 0))
         .slice(0, 7)
@@ -30,30 +32,42 @@ const SymbolGrid = ({ onSpeak, settings }) => {
     const frequentIds = frequent.map(s => s.id);
 
     // 3. Others (the rest)
-    const others = QuoteSymbols.filter(s => !manualIds.includes(s.id) && !frequentIds.includes(s.id));
+    const others = allSymbols.filter(s => !manualIds.includes(s.id) && !frequentIds.includes(s.id));
 
     return { manual, frequent, others };
-  }, [manualFavorites, usageStats, showManualFavorites, showFrequentSymbols]);
+  }, [manualFavorites, usageStats, showManualFavorites, showFrequentSymbols, settings.customCards]);
 
   const renderCard = (s, isSmall = false) => {
     const currentLang = settings.language || 'pt';
     const label = typeof s.label === 'object' ? s.label[currentLang] : s.label;
 
+    const IconMap = {
+      Plus: Plus,
+      MessageSquare: MessageSquare,
+      Star: Star,
+      Zap: Zap
+    };
+
+    let iconToRender = s.icon;
+    if (typeof s.icon === 'string' && IconMap[s.icon]) {
+      const Component = IconMap[s.icon];
+      iconToRender = <Component size={isSmall ? 40 : 56} strokeWidth={2.5} />;
+    } else if (React.isValidElement(s.icon) && typeof s.icon.type !== 'string') {
+      iconToRender = React.cloneElement(s.icon, {
+        size: isSmall ? 40 : 56,
+        strokeWidth: 2.5
+      });
+    }
+
     return (
       <button
         key={s.id}
-        className={`symbol-card category-${s.category} ${isSmall ? 'small' : ''}`}
+        className={`symbol-card category-${s.category || 'custom'} ${isSmall ? 'small' : ''}`}
         onClick={() => onSpeak(s)}
         aria-label={`Falar: ${label}`}
       >
         <div className="symbol-icon-wrapper">
-          {React.isValidElement(s.icon) && s.icon.type !== 'span'
-            ? React.cloneElement(s.icon, {
-              size: isSmall ? 40 : 56,
-              strokeWidth: 2.5
-            })
-            : s.icon
-          }
+          {iconToRender}
         </div>
         <div className="symbol-label">{label}</div>
       </button>
