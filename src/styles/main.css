@@ -42,6 +42,8 @@
   /* Blue - Descriptives */
   --color-aac-people: #FFF176;
   /* Yellow - People */
+  --color-aac-feelings: #CE93D8;
+  /* Purple - Feelings */
 }
 
 /* Pastel Palette */
@@ -51,6 +53,7 @@
   --color-aac-noun: #FFDFBA;
   --color-aac-adj: #BAE1FF;
   --color-aac-people: #FFFFBA;
+  --color-aac-feelings: #F3E5F5;
 }
 
 /* High Contrast Palette */
@@ -60,6 +63,7 @@
   --color-aac-noun: #EF6C00;
   --color-aac-adj: #0277BD;
   --color-aac-people: #FBC02D;
+  --color-aac-feelings: #7B1FA2;
 }
 
 /* Font Colors */

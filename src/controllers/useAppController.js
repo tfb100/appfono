@@ -18,7 +18,8 @@ export const useAppController = () => {
             buttonPalette: 'classic',
             fontColor: 'white',
             language: 'pt',
-            customCards: []
+            customCards: [],
+            iconStyle: 'minimalist'
         };
 
         if (!saved) return defaultSettings;
@@ -93,6 +94,7 @@ export const useAppController = () => {
         }
 
         // Only play audio if language is PT and audio exists
+        /* 
         if (currentLang === 'pt' && symbol.audio) {
             try {
                 await playAudio(symbol.audio);
@@ -101,6 +103,7 @@ export const useAppController = () => {
                 console.warn(`Failed to play MP3 for ${label}, falling back to TTS`, error);
             }
         }
+        */
 
         const langCodes = { pt: 'pt-BR', en: 'en-US', es: 'es-ES' };
         await speak(textToSpeak, settings.voiceURI, settings.rate, 1, langCodes[currentLang]);

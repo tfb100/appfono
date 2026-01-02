@@ -34,7 +34,15 @@ const SymbolGrid = ({ onSpeak, settings }) => {
     // 3. Others (the rest)
     const others = allSymbols.filter(s => !manualIds.includes(s.id) && !frequentIds.includes(s.id));
 
-    return { manual, frequent, others };
+    // Grouping others by category
+    const groupedOthers = others.reduce((acc, s) => {
+      const cat = s.category || 'custom';
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(s);
+      return acc;
+    }, {});
+
+    return { manual, frequent, groupedOthers };
   }, [manualFavorites, usageStats, showManualFavorites, showFrequentSymbols, settings.customCards]);
 
   const renderCard = (s, isSmall = false) => {
@@ -49,7 +57,19 @@ const SymbolGrid = ({ onSpeak, settings }) => {
     };
 
     let iconToRender = s.icon;
-    if (typeof s.icon === 'string' && IconMap[s.icon]) {
+
+    if (settings.iconStyle === 'colorful' && s.colorfulIcon) {
+      const iconPath = `/icons/colorful/${s.colorfulIcon}`;
+      iconToRender = <img
+        src={iconPath}
+        alt={label}
+        style={{
+          width: isSmall ? '40px' : '65px',
+          height: isSmall ? '40px' : '65px',
+          objectFit: 'contain'
+        }}
+      />;
+    } else if (typeof s.icon === 'string' && IconMap[s.icon]) {
       const Component = IconMap[s.icon];
       iconToRender = <Component size={isSmall ? 40 : 56} strokeWidth={2.5} />;
     } else if (React.isValidElement(s.icon) && typeof s.icon.type !== 'string') {
@@ -76,6 +96,16 @@ const SymbolGrid = ({ onSpeak, settings }) => {
 
   const t = translations[settings.language || 'pt'];
 
+  const categoryLabels = {
+    social: t.categorySocial,
+    people: t.categoryPeople,
+    verb: t.categoryVerbs,
+    noun: t.categoryNouns,
+    adj: t.categoryAdj,
+    feelings: t.categoryFeelings,
+    custom: t.categoryCustom
+  };
+
   return (
     <div className="grid-container">
       {sections.manual.length > 0 && (
@@ -95,16 +125,15 @@ const SymbolGrid = ({ onSpeak, settings }) => {
           </div>
         </div>
       )}
-      {settings.showAllSymbols && (
-        <div className="grid-section">
-          {(sections.manual.length > 0 || sections.frequent.length > 0) && (
-            <h3 className="section-title">{t.allSymbols}</h3>
-          )}
+
+      {settings.showAllSymbols && Object.entries(sections.groupedOthers).map(([cat, symbols]) => (
+        <div key={cat} className="grid-section">
+          <h3 className="section-title">{categoryLabels[cat] || cat}</h3>
           <div className="symbol-grid">
-            {sections.others.map(s => renderCard(s))}
+            {symbols.map(s => renderCard(s))}
           </div>
         </div>
-      )}
+      ))}
     </div>
   );
 };
