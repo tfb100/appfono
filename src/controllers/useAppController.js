@@ -19,7 +19,9 @@ export const useAppController = () => {
             fontColor: 'white',
             language: 'pt',
             customCards: [],
-            iconStyle: 'minimalist'
+            customCards: [],
+            iconStyle: 'minimalist',
+            voiceGender: 'any'
         };
 
         if (!saved) return defaultSettings;
@@ -47,22 +49,55 @@ export const useAppController = () => {
     const prevLangRef = useRef(settings.language);
 
     // Auto-select voice based on language
+    // Auto-select voice based on language and gender
     useEffect(() => {
-        if (voices.length > 0 && settings.language !== prevLangRef.current) {
-            const currentLang = settings.language;
-            const searchCodes = currentLang === 'pt' ? ['pt'] : currentLang === 'en' ? ['en'] : ['es', 'spa'];
-            const matchingVoice = voices.find(v => {
-                const voiceLang = v.lang.toLowerCase();
-                return searchCodes.some(code => voiceLang.startsWith(code) || voiceLang.includes(code));
-            });
+        if (voices.length === 0) return;
 
+        // Helper to guess gender
+        const getGender = (name) => {
+            const n = name.toLowerCase();
+            if (/female|woman|girl|feminino|maria|luciana|joana|vitoria|zira|samantha/i.test(n)) return 'female';
+            if (/male|man|boy|masculino|daniel|ricardo|david|felipe/i.test(n)) return 'male';
+            return 'unknown';
+        };
+
+        const currentLang = settings.language;
+        const currentGender = settings.voiceGender || 'any';
+        // Filter by language first
+        const searchCodes = currentLang === 'pt' ? ['pt']
+            : currentLang === 'en' ? ['en']
+                : currentLang === 'es' ? ['es', 'spa']
+                    : currentLang === 'de' ? ['de', 'ger']
+                        : currentLang === 'fr' ? ['fr']
+                            : currentLang === 'zh' ? ['zh', 'chi']
+                                : currentLang === 'ja' ? ['ja', 'jpn']
+                                    : [currentLang];
+
+        // Filter by language first
+        const langVoices = voices.filter(v => {
+            const voiceLang = v.lang.toLowerCase();
+            return searchCodes.some(code => voiceLang.startsWith(code) || voiceLang.includes(code));
+        });
+
+        // Try to find a match for gender
+        let bestMatch = null;
+
+        if (currentGender === 'any') {
+            bestMatch = langVoices[0];
+        } else {
+            bestMatch = langVoices.find(v => getGender(v.name) === currentGender);
+            // Fallback if no specific gender match found
+            if (!bestMatch) bestMatch = langVoices[0];
+        }
+
+        if (bestMatch && bestMatch.voiceURI !== settings.voiceURI) {
             setSettings(prev => ({
                 ...prev,
-                voiceURI: matchingVoice ? matchingVoice.voiceURI : ''
+                voiceURI: bestMatch.voiceURI
             }));
-            prevLangRef.current = currentLang;
         }
-    }, [settings.language, voices]);
+
+    }, [settings.language, settings.voiceGender, voices]);
 
     // Persistence
     useEffect(() => {
@@ -105,7 +140,15 @@ export const useAppController = () => {
         }
         */
 
-        const langCodes = { pt: 'pt-BR', en: 'en-US', es: 'es-ES' };
+        const langCodes = {
+            pt: 'pt-BR',
+            en: 'en-US',
+            es: 'es-ES',
+            de: 'de-DE',
+            fr: 'fr-FR',
+            zh: 'zh-CN',
+            ja: 'ja-JP'
+        };
         await speak(textToSpeak, settings.voiceURI, settings.rate, 1, langCodes[currentLang]);
     };
 

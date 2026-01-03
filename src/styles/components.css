@@ -379,9 +379,16 @@ main {
     padding: var(--spacing-sm);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    opacity: 1 !important;
     font-size: 1rem;
+}
+
+.voice-select option {
+    background-color: #ffffff !important;
+    color: #000000 !important;
 }
 
 .voice-select:focus {

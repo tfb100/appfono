@@ -55,6 +55,19 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
             <>
               <div className="settings-section">
                 <h3>{t.voiceSettings}</h3>
+
+                <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.voiceGender}</label>
+                <select
+                  value={settings.voiceGender || 'any'}
+                  onChange={(e) => setSettings(prev => ({ ...prev, voiceGender: e.target.value }))}
+                  className="voice-select"
+                  style={{ marginBottom: '1rem' }}
+                >
+                  <option value="any">{t.genderAny}</option>
+                  <option value="female">{t.genderFemale}</option>
+                  <option value="male">{t.genderMale}</option>
+                </select>
+
                 <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.voice}</label>
                 <select
                   value={settings.voiceURI}
@@ -128,6 +141,10 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                   <option value="pt">Português</option>
                   <option value="en">English</option>
                   <option value="es">Español</option>
+                  <option value="de">Deutsch</option>
+                  <option value="fr">Français</option>
+                  <option value="zh">中文</option>
+                  <option value="ja">日本語</option>
                 </select>
 
                 <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.iconStyle}</label>
