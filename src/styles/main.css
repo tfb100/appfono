@@ -44,6 +44,11 @@
   /* Yellow - People */
   --color-aac-feelings: #CE93D8;
   /* Purple - Feelings */
+
+  /* Layout Colors */
+  --header-bg: var(--color-primary);
+  --footer-bg: rgba(255, 255, 255, 0.95);
+  --footer-title-color: #023047;
 }
 
 /* Pastel Palette */
@@ -90,10 +95,29 @@
   background-repeat: no-repeat;
 }
 
+[data-theme="neutral-dark"] .app-background {
+  background-image: none;
+  background-color: #121212;
+}
+
 [data-theme="neutral"] {
   --color-bg: #f5f5f7;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
+}
+
+[data-theme="neutral-dark"] {
+  --color-bg: #121212;
+  --color-text: #e0e0e0;
+  --color-card-bg: #1e1e1e;
+  --color-border: #333333;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+
+  /* Dark Layout Colors */
+  --header-bg: #1e1e1e;
+  --footer-bg: #1e1e1e;
+  --footer-title-color: #e0e0e0;
 }
 
 .app-background {

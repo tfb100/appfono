@@ -21,7 +21,8 @@ export const useAppController = () => {
             customCards: [],
             customCards: [],
             iconStyle: 'minimalist',
-            voiceGender: 'any'
+            voiceGender: 'any',
+            largeCards: false
         };
 
         if (!saved) return defaultSettings;

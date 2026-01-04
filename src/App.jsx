@@ -10,6 +10,9 @@ import logoNeutral from './assets/logo-neutral.png'
 import './styles/main.css'
 import './styles/components.css'
 
+import DonationModal from './components/DonationModal'
+import { useState } from 'react'
+
 function App() {
   const {
     handleSpeak,
@@ -21,7 +24,8 @@ function App() {
     voices
   } = useAppController();
 
-  // Secret Trigger Logic
+  const [isDonationOpen, setIsDonationOpen] = useState(false);
+
   // Secret Trigger Logic
   const handleLogoClick = (e) => {
     // Relying on e.detail can be flaky in some browsers/test envs
@@ -87,7 +91,7 @@ function App() {
 
       <SupportFooter
         language={settings.language || 'pt'}
-        onClick={() => console.log('Future donation page')}
+        onClick={() => setIsDonationOpen(true)}
       />
 
       <SettingsPanel
@@ -96,6 +100,12 @@ function App() {
         settings={settings}
         setSettings={setSettings}
         voices={voices}
+      />
+
+      <DonationModal
+        isOpen={isDonationOpen}
+        onClose={() => setIsDonationOpen(false)}
+        language={settings.language || 'pt'}
       />
     </div>
   )

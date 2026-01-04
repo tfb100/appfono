@@ -106,6 +106,7 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                 >
                   <option value="kids">{t.kids}</option>
                   <option value="neutral">{t.neutral}</option>
+                  <option value="neutral-dark">{t.neutralDark}</option>
                 </select>
 
                 <label style={{ fontSize: '0.9rem', marginBottom: '0.25rem', display: 'block' }}>{t.palette}</label>
@@ -157,6 +158,15 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                   <option value="minimalist">{t.minimalistStyle}</option>
                   <option value="colorful">{t.colorfulStyle}</option>
                 </select>
+
+                <label className="setting-toggle">
+                  <input
+                    type="checkbox"
+                    checked={settings.largeCards || false}
+                    onChange={(e) => setSettings(prev => ({ ...prev, largeCards: e.target.checked }))}
+                  />
+                  <span>{t.largeCards}</span>
+                </label>
 
                 <label className="setting-toggle">
                   <input

@@ -2,6 +2,4 @@
 <resources>
     <string name="app_name">Comunica+</string>
     <string name="title_activity_main">Comunica+</string>
-    <string name="package_name">com.thiago.fonokids</string>
-    <string name="custom_url_scheme">com.thiago.fonokids</string>
 </resources>

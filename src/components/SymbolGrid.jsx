@@ -82,7 +82,7 @@ const SymbolGrid = ({ onSpeak, settings }) => {
     return (
       <button
         key={s.id}
-        className={`symbol-card category-${s.category || 'custom'} ${isSmall ? 'small' : ''}`}
+        className={`symbol-card category-${s.category || 'custom'} ${isSmall ? 'small' : ''} ${settings.largeCards ? 'large' : ''}`}
         onClick={() => onSpeak(s)}
         aria-label={`Falar: ${label}`}
       >
@@ -111,7 +111,7 @@ const SymbolGrid = ({ onSpeak, settings }) => {
       {sections.manual.length > 0 && (
         <div className="grid-section">
           <h3 className="section-title"><Star size={20} fill="var(--color-primary)" /> {t.favorites}</h3>
-          <div className="symbol-grid">
+          <div className={`symbol-grid ${settings.largeCards ? 'large' : ''}`}>
             {sections.manual.map(s => renderCard(s))}
           </div>
         </div>
@@ -120,7 +120,7 @@ const SymbolGrid = ({ onSpeak, settings }) => {
       {sections.frequent.length > 0 && (
         <div className="grid-section">
           <h3 className="section-title"><Zap size={20} fill="#FFD700" /> {t.mostUsed}</h3>
-          <div className="symbol-grid">
+          <div className={`symbol-grid ${settings.largeCards ? 'large' : ''}`}>
             {sections.frequent.map(s => renderCard(s))}
           </div>
         </div>
@@ -129,7 +129,7 @@ const SymbolGrid = ({ onSpeak, settings }) => {
       {settings.showAllSymbols && Object.entries(sections.groupedOthers).map(([cat, symbols]) => (
         <div key={cat} className="grid-section">
           <h3 className="section-title">{categoryLabels[cat] || cat}</h3>
-          <div className="symbol-grid">
+          <div className={`symbol-grid ${settings.largeCards ? 'large' : ''}`}>
             {symbols.map(s => renderCard(s))}
           </div>
         </div>
