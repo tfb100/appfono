@@ -13,10 +13,13 @@
     "@capacitor-community/text-to-speech": "^6.1.0",
     "@capacitor/android": "^8.0.0",
     "@capacitor/core": "^8.0.0",
+    "@capgo/native-purchases": "^8.0.10",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "lucide-react": "^0.561.0",
+    "pix-payload": "^1.0.4",
+    "qrcode.react": "^4.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
