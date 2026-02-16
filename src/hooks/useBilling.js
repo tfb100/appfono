@@ -7,12 +7,15 @@ export const useBilling = () => {
     const [isAvailable, setIsAvailable] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    const [debugError, setDebugError] = useState('');
+
     const PRODUCT_IDS = ['donation_small', 'donation_medium', 'donation_large'];
 
     useEffect(() => {
         const initializeBilling = async () => {
             if (!Capacitor.isNativePlatform()) {
                 setLoading(false);
+                setDebugError("Plataforma não nativa (Web/Dev)");
                 return;
             }
 
@@ -26,10 +29,14 @@ export const useBilling = () => {
                 if (fetchedProducts && fetchedProducts.length > 0) {
                     setProducts(fetchedProducts);
                     setIsAvailable(true);
+                    setDebugError('');
+                } else {
+                    setDebugError("Nenhum produto encontrado na Loja (Verifique Console Google Play)");
                 }
             } catch (error) {
                 console.error("Billing initialization failed", error);
                 setIsAvailable(false);
+                setDebugError(`Erro de Inicialização: ${error.message || JSON.stringify(error)}`);
             } finally {
                 setLoading(false);
             }
@@ -63,6 +70,7 @@ export const useBilling = () => {
         isAvailable,
         loading,
         purchase,
-        getProduct
+        getProduct,
+        debugError
     };
 };

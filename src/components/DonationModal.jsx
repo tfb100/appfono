@@ -13,7 +13,7 @@ const DonationModal = ({ isOpen, onClose, language = 'pt' }) => {
     const [statusMessage, setStatusMessage] = React.useState(''); // Feedback message state
 
     // Billing Hook
-    const { purchase, isAvailable, getProduct } = useBilling();
+    const { purchase, isAvailable, getProduct, debugError } = useBilling();
 
     const handleCopy = () => {
         navigator.clipboard.writeText('appcomunicamais@gmail.com');
@@ -164,10 +164,15 @@ const DonationModal = ({ isOpen, onClose, language = 'pt' }) => {
                                         purchase(currentSelection.productId);
                                         setStatusMessage('');
                                     } else {
-                                        setStatusMessage("⚠️ Ambiente de Desenvolvimento: Compra Google Play indisponível (Simulação).");
-                                        console.log("Purchase attempt in browser/dev environment");
+                                        // Specific debugging message
+                                        const message = debugError && debugError !== "Plataforma não nativa (Web/Dev)"
+                                            ? `⚠️ Erro Google Play: ${debugError}`
+                                            : "⚠️ Ambiente de Desenvolvimento: Compra Google Play indisponível (Simulação).";
+
+                                        setStatusMessage(message);
+                                        console.log("Purchase attempt failed:", debugError);
                                         // clear message after a few seconds
-                                        setTimeout(() => setStatusMessage(''), 4000);
+                                        setTimeout(() => setStatusMessage(''), 6000);
                                     }
                                 }}
                             >
