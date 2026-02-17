@@ -1,8 +1,7 @@
 services:
-  - type: web
+  - type: static
     name: fono-aac
-    env: static
     buildCommand: npm install --force && npm run build
-    staticPublishPath: ./dist
+    publishDir: ./dist
     plan: free
     branch: main
