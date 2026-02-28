@@ -327,7 +327,7 @@ const LandingPage = () => {
                     © 2026 - Comunica+ feito para ajudar.
                 </p>
                 <p style={{ opacity: 0.7, fontSize: '0.9rem' }}>
-                    Comunica+ faz parte do grupo <a href="https://oqconecta.com.br" target="_blank" rel="noopener noreferrer" style={{ color: theme.primary, textDecoration: 'none', fontWeight: 'bold' }}>OQConecta.com.br</a>
+                    Comunica+ faz parte do grupo <a href="https://oqconecta.tech" target="_blank" rel="noopener noreferrer" style={{ color: theme.primary, textDecoration: 'none', fontWeight: 'bold' }}>OQConecta.tech</a>
                 </p>
 
                 <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center', gap: '2rem', fontSize: '0.9rem', opacity: 0.6 }}>
