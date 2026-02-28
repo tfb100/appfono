@@ -63,7 +63,7 @@ const LandingPage = () => {
                     <img src={logoKids} alt="Comunica+ Logo" style={{ height: '90px', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }} />
                 </div>
                 <button
-                    onClick={() => navigate('/app')}
+                    onClick={() => navigate('/comunicamais/app')}
                     className="animate-fade-in"
                     style={{
                         backgroundColor: theme.primary,
@@ -132,7 +132,7 @@ const LandingPage = () => {
                         Ferramenta gratuita de Comunicação Aumentativa e Alternativa (CAA) para apoiar o desenvolvimento da fala e a interação social.
                     </p>
                     <button
-                        onClick={() => navigate('/app')}
+                        onClick={() => navigate('/comunicamais/app')}
                         className="animate-fade-in"
                         style={{
                             backgroundColor: theme.secondary,
