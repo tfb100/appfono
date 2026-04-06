@@ -1,7 +1,8 @@
 import React from 'react';
-import { X, Star, Zap, Plus, Trash2 } from 'lucide-react';
+import { X, Star, Zap, Plus, Trash2, Brain, Eye, MessageSquare } from 'lucide-react';
 import { QuoteSymbols } from '../models/QuoteSymbols.jsx';
 import { translations } from '../utils/translations';
+import { useFeatureStore } from '../stores/useFeatureStore';
 
 const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
   if (!isOpen) return null;
@@ -25,6 +26,13 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
 
   const maxUsage = sortedStats.length > 0 ? sortedStats[0][1] : 0;
 
+  // AI Feature Hooks (Must be at top level)
+  const isBlinkEnabled = useFeatureStore(state => state.isBlinkEnabled);
+  const isScanningEnabled = useFeatureStore(state => state.isScanningEnabled);
+  const isWhisperEnabled = useFeatureStore(state => state.isWhisperEnabled);
+  const isPredictEnabled = useFeatureStore(state => state.isPredictEnabled);
+  const { toggleBlink, toggleScanning, toggleWhisper, togglePredict } = useFeatureStore.getState();
+
   return (
     <div className="settings-overlay">
       <div className="settings-modal" style={{ maxWidth: '500px', width: '95%' }}>
@@ -47,6 +55,12 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
             onClick={() => setActiveTab('stats')}
           >
             {t.statisticsTab}
+          </button>
+          <button
+            className={`tab-btn ${activeTab === 'ai' ? 'active' : ''}`}
+            onClick={() => setActiveTab('ai')}
+          >
+            Smart IA
           </button>
         </div>
 
@@ -159,7 +173,7 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                   <option value="colorful">{t.colorfulStyle}</option>
                 </select>
 
-                <label className="setting-toggle">
+                <label className="setting-toggle" style={{ marginBottom: '1rem' }}>
                   <input
                     type="checkbox"
                     checked={settings.largeCards || false}
@@ -167,6 +181,62 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                   />
                   <span>{t.largeCards}</span>
                 </label>
+
+                <div className="divider" style={{ borderTop: '1px solid #eee', margin: '1rem 0' }} />
+
+                <label className="setting-toggle" style={{ marginBottom: '1rem' }}>
+                  <input
+                    type="checkbox"
+                    checked={settings.leanMode || false}
+                    onChange={(e) => setSettings(prev => ({ ...prev, leanMode: e.target.checked }))}
+                  />
+                  <span style={{ fontWeight: 'bold', color: 'var(--color-primary)' }}>{t.leanMode}</span>
+                </label>
+
+                {settings.leanMode && (
+                  <div className="lean-controls" style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between',
+                    backgroundColor: '#f8fafc',
+                    padding: '12px',
+                    borderRadius: '12px',
+                    marginBottom: '1rem'
+                  }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>{t.leanButtonsCount}</span>
+                      <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--color-primary)' }}>{settings.leanCount || 4}</span>
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button 
+                        onClick={() => setSettings(prev => ({ ...prev, leanCount: Math.max(2, (prev.leanCount || 4) - 2) }))}
+                        disabled={(settings.leanCount || 4) <= 2}
+                        className="lean-btn"
+                        style={{
+                          width: '44px', height: '44px', borderRadius: '12px', border: 'none',
+                          backgroundColor: (settings.leanCount || 4) <= 2 ? '#e2e8f0' : 'var(--color-primary)',
+                          color: 'white', fontSize: '1.5rem', cursor: 'pointer'
+                        }}
+                        title={t.leanDecrease}
+                      >
+                        -
+                      </button>
+                      <button 
+                        onClick={() => setSettings(prev => ({ ...prev, leanCount: Math.min(8, (prev.leanCount || 4) + 2) }))}
+                        disabled={(settings.leanCount || 4) >= 8}
+                        className="lean-btn"
+                        style={{
+                          width: '44px', height: '44px', borderRadius: '12px', border: 'none',
+                          backgroundColor: (settings.leanCount || 4) >= 8 ? '#e2e8f0' : 'var(--color-primary)',
+                          color: 'white', fontSize: '1.5rem', cursor: 'pointer'
+                        }}
+                        title={t.leanIncrease}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                )}
 
                 <label className="setting-toggle">
                   <input
@@ -332,6 +402,110 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                 </div>
               </div>
             </>
+          ) : activeTab === 'ai' ? (
+              <div className="ai-settings">
+                <div className="settings-section">
+                    <h3>Recursos Assistivos (Edge AI)</h3>
+                    <p style={{ fontSize: '0.85rem', opacity: 0.7, marginBottom: '1.5rem' }}>
+                        Processamento local de alta performance. Requer tablet com 2GB+ de RAM.
+                    </p>
+
+                    <label className="setting-toggle" style={{ 
+                        backgroundColor: isBlinkEnabled ? '#f0fdf4' : '#f8fafc',
+                        padding: '16px',
+                        borderRadius: '16px',
+                        border: '1px solid #e2e8f0',
+                        marginBottom: '12px'
+                    }}>
+                        <input
+                            type="checkbox"
+                            checked={isBlinkEnabled}
+                            onChange={() => toggleBlink()}
+                        />
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <Eye size={18} color="#22c55e" />
+                                <span style={{ fontWeight: '700' }}>Acionamento por Piscada</span>
+                            </div>
+                            <small style={{ opacity: 0.6, fontSize: '0.75rem' }}>
+                                Pisque para selecionar símbolos sem precisar tocar na tela.
+                            </small>
+                        </div>
+                    </label>
+
+                    <label className="setting-toggle" style={{ 
+                        backgroundColor: isScanningEnabled ? '#eff6ff' : '#f8fafc',
+                        padding: '16px',
+                        borderRadius: '16px',
+                        border: '1px solid #e2e8f0',
+                        marginBottom: '12px'
+                    }}>
+                        <input
+                            type="checkbox"
+                            checked={isScanningEnabled}
+                            onChange={() => toggleScanning()}
+                        />
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <Zap size={18} color="#3b82f6" />
+                                <span style={{ fontWeight: '700' }}>Modo Varredura (Auto Scan)</span>
+                            </div>
+                            <small style={{ opacity: 0.6, fontSize: '0.75rem' }}>
+                                O app percorre os símbolos. Pisque quando o item desejado estiver azul.
+                            </small>
+                        </div>
+                    </label>
+
+                    <label className="setting-toggle" style={{ 
+                        backgroundColor: isWhisperEnabled ? '#eff6ff' : '#f8fafc',
+                        padding: '16px',
+                        borderRadius: '16px',
+                        border: '1px solid #e2e8f0',
+                        marginBottom: '12px'
+                    }}>
+                        <input 
+                            type="checkbox" 
+                            checked={isWhisperEnabled} 
+                            onChange={() => {
+                                toggleWhisper();
+                                // Sincroniza Sugestões com Microfone por conveniência
+                                if (!isWhisperEnabled && !isPredictEnabled) togglePredict();
+                            }}
+                        />
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <MessageSquare size={18} color="#3b82f6" />
+                                <span style={{ fontWeight: '700' }}>Escuta Inteligente (Whisper)</span>
+                            </div>
+                            <small style={{ opacity: 0.6, fontSize: '0.75rem' }}>
+                                Ativa o microfone para entender o contexto do ambiente em tempo real.
+                            </small>
+                        </div>
+                    </label>
+
+                    <label className="setting-toggle" style={{ 
+                        backgroundColor: isPredictEnabled ? '#fdf2f8' : '#f8fafc',
+                        padding: '16px',
+                        borderRadius: '16px',
+                        border: '1px solid #e2e8f0'
+                    }}>
+                        <input 
+                            type="checkbox" 
+                            checked={isPredictEnabled} 
+                            onChange={() => togglePredict()}
+                        />
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <Star size={18} color="#ec4899" />
+                                <span style={{ fontWeight: '700' }}>Sugestões Preditivas (Contexto)</span>
+                            </div>
+                            <small style={{ opacity: 0.6, fontSize: '0.75rem' }}>
+                                Exibe símbolos sugeridos no topo baseando-se no que a IA ouviu.
+                            </small>
+                        </div>
+                    </label>
+                </div>
+              </div>
           ) : (
             <div className="usage-dashboard">
               <h3>{t.mostUsedSymbols}</h3>
@@ -350,7 +524,15 @@ const SettingsPanel = ({ settings, setSettings, isOpen, onClose, voices }) => {
                     <div key={id} className="usage-item">
                       <div className="usage-rank">{index + 1}</div>
                       <div className={`usage-icon-mini category-${symbol.category}`}>
-                        {React.isValidElement(symbol.icon) ? React.cloneElement(symbol.icon, { size: 20 }) : symbol.label[0]}
+                        {settings.iconStyle === 'colorful' && symbol.colorfulIcon ? (
+                          <img 
+                            src={`${import.meta.env.BASE_URL}icons/colorful/${symbol.colorfulIcon}`} 
+                            alt="" 
+                            style={{ width: '20px', height: '20px', objectFit: 'contain' }} 
+                          />
+                        ) : (
+                          React.isValidElement(symbol.icon) ? React.cloneElement(symbol.icon, { size: 20 }) : symbol.label[0]
+                        )}
                       </div>
                       <div className="usage-info">
                         <span className="usage-label">{label}</span>

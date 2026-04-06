@@ -2,7 +2,11 @@ import { Settings } from 'lucide-react'
 import SymbolGrid from '../components/SymbolGrid'
 import SettingsPanel from '../components/SettingsPanel'
 import SupportFooter from '../components/SupportFooter'
+import BlinkIndicator from '../components/ia/BlinkIndicator'
+import MicIndicator from '../components/ia/MicIndicator'
+import SmartSuggestions from '../components/ia/SmartSuggestions'
 import { useAppController } from '../controllers/useAppController'
+import { useFeatureStore } from '../stores/useFeatureStore'
 import { useEffect } from 'react'
 import { translations } from '../utils/translations'
 import logoKids from '../assets/logo-kids.png'
@@ -23,6 +27,8 @@ function ToolView() {
         voices
     } = useAppController();
 
+    const isBlinkEnabled = useFeatureStore(state => state.isBlinkEnabled);
+    const isWhisperEnabled = useFeatureStore(state => state.isWhisperEnabled);
     const [isDonationOpen, setIsDonationOpen] = useState(false);
 
     // Secret Trigger Logic
@@ -85,6 +91,10 @@ function ToolView() {
 
 
             <main>
+                <SmartSuggestions 
+                    onSpeak={handleSpeak}
+                    settings={settings}
+                />
                 <SymbolGrid
                     onSpeak={handleSpeak}
                     settings={settings}
@@ -109,6 +119,29 @@ function ToolView() {
                 onClose={() => setIsDonationOpen(false)}
                 language={settings.language || 'pt'}
             />
+
+            {/* AI HUD Layer */}
+            {isBlinkEnabled && (
+                <div className="ai-hud-container" style={{
+                    position: 'fixed',
+                    top: '100px',
+                    right: '20px',
+                    zIndex: 90
+                }}>
+                    <BlinkIndicator />
+                </div>
+            )}
+
+            {isWhisperEnabled && (
+                <div className="ai-hud-container" style={{
+                    position: 'fixed',
+                    bottom: '100px',
+                    left: '20px',
+                    zIndex: 90
+                }}>
+                    <MicIndicator />
+                </div>
+            )}
         </div>
     )
 }

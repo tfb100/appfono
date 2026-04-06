@@ -22,7 +22,9 @@ export const useAppController = () => {
             customCards: [],
             iconStyle: 'minimalist',
             voiceGender: 'any',
-            largeCards: false
+            largeCards: false,
+            leanMode: false,
+            leanCount: 4
         };
 
         if (!saved) return defaultSettings;
