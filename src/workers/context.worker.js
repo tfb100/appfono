@@ -121,8 +121,10 @@ const WORD_SCORES = {
     'escovar':   { 'HIGIENE_NECESSIDADE': 3 },
     'dente':     { 'HIGIENE_NECESSIDADE': 2, 'SENTIMENTOS': 0.5 },
 
-    // === IDENTIDADE ===
-    'quem':      { 'QUEM_SOU_EU_TU': 4 },
+    // Pessoas e Identidade
+    'tio': { 'QUEM_PESSOA': 2 },
+    'tia': { 'QUEM_PESSOA': 2 },
+    'quem':      { 'QUEM_PESSOA': 2, 'QUEM_SOU_EU_TU': 4 },
     'nome':      { 'QUEM_SOU_EU_TU': 2 },
     'chama':     { 'QUEM_SOU_EU_TU': 2 },
     'mamae':     { 'QUEM_SOU_EU_TU': 2 },
@@ -137,6 +139,9 @@ const WORD_SCORES = {
     'consigo':   { 'PEDIR_AJUDA': 1 },
     'nao':       { 'PEDIR_AJUDA': 0.5 },
     'preciso':   { 'PEDIR_AJUDA': 1.5 },
+    'obrigado':  { 'SOCIAL_SAUDACAO': 2, 'SOCIAL_DESPEDIDA': 1 },
+    'valeu':     { 'SOCIAL_SAUDACAO': 2 },
+    'por favor': { 'SOCIAL_SAUDACAO': 1, 'PEDIR_AJUDA': 1 },
 
     // === SENTIMENTOS ===
     'sentimento': { 'SENTIMENTOS': 4 },
@@ -148,6 +153,7 @@ const WORD_SCORES = {
     'feliz':     { 'SENTIMENTOS': 4 },
     'triste':    { 'SENTIMENTOS': 4 },
     'bravo':     { 'SENTIMENTOS': 4 },
+    'alegre':    { 'SENTIMENTOS': 3 },
     'irritado':  { 'SENTIMENTOS': 4 },
     'cansado':   { 'SENTIMENTOS': 3 },
     'sono':      { 'SENTIMENTOS': 3 },
@@ -180,9 +186,13 @@ const WORD_SCORES = {
     'esta':      {},   // Sem valor — aparece em muitos contextos
     'estou':     { 'SENTIMENTOS': 1 },
     'eu':        {},
-    'quer':      { 'QUERER_COMER_BEBER': 1.5, 'QUERER_BRINCAR': 1.5 },
-    'quero':     { 'QUERER_COMER_BEBER': 1.5, 'QUERER_BRINCAR': 1.5 },
+    'quer':      { 'QUERER_COMER_BEBER': 2, 'QUERER_BRINCAR': 2, 'PEDIR_AJUDA': 1 },
+    'quero':     { 'QUERER_COMER_BEBER': 2, 'QUERER_BRINCAR': 2, 'PEDIR_AJUDA': 1 },
     'vamos':     { 'QUERER_BRINCAR': 1, 'ONDE_ESTOU': 1 },
+    'mais':      { 'QUERER_COMER_BEBER': 1, 'QUERER_BRINCAR': 1, 'SOCIAL_SAUDACAO': 0.5 },
+    'menos':     { 'QUERER_COMER_BEBER': 1 },
+    'gosta':     { 'SENTIMENTOS': 1, 'QUERER_COMER_BEBER': 1 },
+    'pode':      { 'PEDIR_AJUDA': 1, 'QUERER_BRINCAR': 1 },
 };
 
 const INTENT_THRESHOLD = 3; // Pontuação mínima para ativar uma intenção
@@ -229,15 +239,16 @@ function detectIntentByWordScoring(normalizedText) {
  * devemos usar para rankear os cards de RESPOSTA?
  */
 const RESPONSE_CONCEPTS = {
-    'ONDE_ESTOU':           'aqui lá banheiro quarto cozinha sala casa escola pátio parque lugar posição',
-    'QUERER_COMER_BEBER':   'comer beber comida água suco leite pão fruta lanche sim não quero',
-    'QUERER_BRINCAR':       'brincar parque bola boneca jogar correr sim não quero diversão',
-    'PEDIR_AJUDA':          'ajuda sim não preciso socorro mamãe papai',
-    'SOCIAL_SAUDACAO':      'olá oi bom dia boa tarde boa noite tudo bem sim',
-    'SOCIAL_DESPEDIDA':     'tchau adeus até logo embora acabou',
+    'ONDE_ESTOU':           'aqui lá banheiro quarto cozinha sala casa escola pátio parque lugar posição sim não obrigado',
+    'QUERER_COMER_BEBER':   'sim não mais menos obrigado por favor comer beber água suco leite pão fruta lanche quero',
+    'QUERER_BRINCAR':       'sim não mais menos obrigado por favor brincar parque bola boneca jogar quero diversão',
+    'PEDIR_AJUDA':          'sim não preciso socorro ajuda obrigado por favor mamãe papai',
+    'SOCIAL_SAUDACAO':      'olá oi bom dia boa tarde boa noite tudo bem sim obrigado de nada',
+    'SOCIAL_DESPEDIDA':     'tchau adeus até logo embora acabou obrigado',
+    'QUEM_PESSOA': 'eu você você quem mamãe papai vovô vovó tio tia amigo professor médico terapeuta fono pessoa homem mulher criança',
     'QUEM_SOU_EU_TU':       'eu você mamãe papai vovô vovó quem nome',
-    'SENTIMENTOS':          'feliz triste cansado sono dor animado bravo irritado medo alegre chorar emoção sentimento humor',
-    'HIGIENE_NECESSIDADE':  'banheiro sim não quero ir acabou',
+    'SENTIMENTOS':          'sim não feliz triste cansado sono dor animado bravo irradiado medo alegre chorar sentimento',
+    'HIGIENE_NECESSIDADE':  'sim não quero ir banheiro acabou obrigado',
 };
 
 // ============================================================
@@ -362,25 +373,47 @@ const runAnalysis = async (text) => {
         }
     }
 
-    // ── STAGE 2: Ranking de Cards via Conceito de Resposta ──
+    // ── STAGE 2: Ranking Híbrido de Cards (Social + Específico) ──
     let rankedSymbols = [];
     if (currentSymbols.length > 0) {
-        // Usa o vetor PRÉ-COMPUTADO do conceito de resposta (sem recomputar!)
+        // IDs essenciais de interação social que sempre devem ser considerados
+        // Sim (3), Não (4), Mais (28), Menos (52), Obrigado (50), De nada (51)
+        const socialIds = [3, 4, 28, 52, 50, 51];
+        
+        // Vetor do conceito de resposta detectado
         const rankingVector = respCache[bestIntent];
+        const socialVector = respCache['SOCIAL_SAUDACAO']; // Base para reforço social
 
         if (rankingVector) {
-            const scored = currentSymbols.map(s => ({
-                id: s.id,
-                score: cosineSimilarity(rankingVector, s.vector),
-                label: s.label
-            }));
+            const scored = currentSymbols.map(s => {
+                const domainScore = cosineSimilarity(rankingVector, s.vector);
+                
+                // Bônus para Social: se for um card social e a intenção não for puramente social,
+                // damos um boost ou garantimos presença no pool A.
+                const isSocial = socialIds.includes(s.id);
+                
+                // O score final é o máximo entre o domínio e um peso social fixo se for essencial
+                const finalScore = isSocial ? Math.max(domainScore, 0.45) : domainScore;
 
-            rankedSymbols = scored
+                return {
+                    id: s.id,
+                    score: finalScore,
+                    label: s.label,
+                    isSocial
+                };
+            });
+
+            // Separa em dois pools para garantir diversidade (4 Sociais + 4 de Domínio)
+            const poolSocial = scored.filter(s => s.isSocial).sort((a,b) => b.score - a.score).slice(0, 4);
+            const poolDomain = scored.filter(s => !s.isSocial).sort((a,b) => b.score - a.score).slice(0, 4);
+
+            // Une os dois (preferência para o total de 8)
+            rankedSymbols = [...poolSocial, ...poolDomain]
                 .sort((a, b) => b.score - a.score)
-                .filter(s => s.score > 0.15)
-                .slice(0, 6);
+                .slice(0, 8);
 
-            console.log(`[ContextWorker] ★ Intent=${bestIntent} | Top 5: ${rankedSymbols.slice(0, 5).map(s => `${s.label}(${s.score.toFixed(2)})`).join(', ')}`);
+            console.log(`[ContextWorker] ★ Intent=${bestIntent} | Social=${poolSocial.length}, Domain=${poolDomain.length}`);
+            console.log(`[ContextWorker] Top Sugestões: ${rankedSymbols.map(s => s.label).join(', ')}`);
         } else {
             console.warn(`[ContextWorker] Sem conceito de resposta para ${bestIntent}`);
         }

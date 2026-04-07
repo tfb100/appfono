@@ -51,7 +51,7 @@ const SmartSuggestions = ({ onSpeak, settings }) => {
                     .map(rs => QuoteSymbols.find(s => s.id === rs.id))
                     .filter(Boolean);
 
-                setSuggestions(curated.slice(0, 6));
+                setSuggestions(curated.slice(0, 8));
             }
         };
 
@@ -81,6 +81,8 @@ const SmartSuggestions = ({ onSpeak, settings }) => {
     if (!isActive) return null;
 
     // Se não está gravando/processando E não tem sugestões, fica invisível
+    // IMPORTANTE: Permitimos que a barra continue visível se houver sugestões (suggestions.length > 0)
+    // mesmo que o mic tenha sido desligado, para dar tempo da criança clicar.
     if (!isMicActive && !isWaiting && suggestions.length === 0) return null;
 
     // Estado: sem sugestões ainda — mostra indicador sutil

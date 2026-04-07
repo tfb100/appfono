@@ -1,8 +1,8 @@
 import React from 'react';
 import {
     Utensils, Heart, Home, MessageCircle, AlertCircle, Smile, Frown, ThumbsUp, ThumbsDown, Battery, User, Star, Coffee, Bed, Bath,
-    Hand, ArrowRight, Play, Eye, DoorOpen, Users, Search, MapPin, ArrowUpRight, Pointer, HeartHandshake, HelpCircle, Maximize2, Minimize2, Plus, XCircle,
-    Tv, Trees, Sofa, Moon, BatteryLow, Fingerprint, Activity, DoorClosed, Trophy, TrendingDown, Sun, CloudSun
+    Hand, ArrowRight, Play, Eye, DoorOpen, Users, Search, MapPin, ArrowUpRight, Pointer, HeartHandshake, HelpCircle, Maximize2, Minimize2, Plus, Minus, XCircle,
+    Tv, Trees, Sofa, Moon, BatteryLow, Fingerprint, Activity, DoorClosed, Trophy, TrendingDown, Sun, CloudSun, CheckCircle
 } from 'lucide-react';
 
 export const QuoteSymbols = [
@@ -16,6 +16,8 @@ export const QuoteSymbols = [
     { id: 47, label: { pt: 'Boa tarde', en: 'Good afternoon', es: 'Buenas tardes', de: 'Guten Tag', fr: 'Bonne après-midi', zh: '下午好', ja: 'こんにちは' }, icon: <CloudSun />, colorfulIcon: 'boa_tarde.png', category: 'social', text: { pt: 'boa tarde', en: 'good afternoon', es: 'buenas tardes', de: 'guten tag', fr: 'bonne après-midi', zh: '下午好', ja: 'こんにちは' }, audio: 'boa_tarde.mp3' },
     { id: 48, label: { pt: 'Boa noite', en: 'Good night', es: 'Buenas noches', de: 'Gute Nacht', fr: 'Bonne nuit', zh: '晚安', ja: 'おやすみ' }, icon: <Moon />, colorfulIcon: 'boa_noite.png', category: 'social', text: { pt: 'boa noite', en: 'good night', es: 'buenas noches', de: 'gute nacht', fr: 'bonne nuit', zh: '晚安', ja: 'おやすみ' }, audio: 'boa_noite.mp3' },
     { id: 49, label: { pt: 'Tchau', en: 'Goodbye', es: 'Adiós', de: 'Tschüss', fr: 'Au revoir', zh: '再见', ja: 'さようなら' }, icon: <Hand />, colorfulIcon: 'tchau.png', category: 'social', text: { pt: 'tchau', en: 'goodbye', es: 'adiós', de: 'tschüss', fr: 'au revoir', zh: '再见', ja: 'さようなら' }, audio: 'tchau.mp3' },
+    { id: 50, label: { pt: 'Obrigado', en: 'Thank you', es: 'Gracias', de: 'Danke', fr: 'Merci', zh: '谢谢', ja: 'ありがとう' }, icon: <Heart />, colorfulIcon: 'obrigado.png', category: 'social', text: { pt: 'obrigado', en: 'thank you', es: 'gracias', de: 'danke', fr: 'merci', zh: '谢谢', ja: 'ありがとう' }, audio: 'obrigado.mp3' },
+    { id: 51, label: { pt: 'De nada', en: 'You\'re welcome', es: 'De nada', de: 'Bitte', fr: 'De rien', zh: '不客气', ja: 'どういたしまして' }, icon: <CheckCircle />, colorfulIcon: 'de_nada.png', category: 'social', text: { pt: 'de nada', en: 'you\'re welcome', es: 'de nada', de: 'bitte', fr: 'de rien', zh: '不客气', ja: 'どういたしまして' }, audio: 'de_nada.mp3' },
 
     // Pessoas
     { id: 2, label: { pt: 'Eu', en: 'I', es: 'Yo', de: 'Ich', fr: 'Je', zh: '我', ja: '私' }, icon: <User />, colorfulIcon: 'eu.png', category: 'people', text: { pt: 'Eu', en: 'I', es: 'Yo', de: 'Ich', fr: 'Je', zh: '我', ja: '私' }, audio: 'eu.mp3' },
@@ -25,6 +27,8 @@ export const QuoteSymbols = [
     { id: 43, label: { pt: 'Papai', en: 'Dad', es: 'Papá', de: 'Papa', fr: 'Papa', zh: '爸爸', ja: 'パパ' }, icon: <User />, colorfulIcon: 'papai.png', category: 'people', text: { pt: 'papai', en: 'dad', es: 'papá', de: 'papa', fr: 'papa', zh: '爸爸', ja: 'パパ' }, audio: 'papai.mp3' },
     { id: 44, label: { pt: 'Vovô', en: 'Grandpa', es: 'Abuelo', de: 'Opa', fr: 'Papi', zh: '爷爷', ja: 'おじいちゃん' }, icon: <User />, colorfulIcon: 'vovo_m.png', category: 'people', text: { pt: 'vovô', en: 'grandpa', es: 'abuelo', de: 'opa', fr: 'papi', zh: '爷爷', ja: 'おじいちゃん' }, audio: 'vovo_m.mp3' },
     { id: 45, label: { pt: 'Vovó', en: 'Grandma', es: 'Abuela', de: 'Oma', fr: 'Mamie', zh: '奶奶', ja: 'おばあちゃん' }, icon: <User />, colorfulIcon: 'vovo_f.png', category: 'people', text: { pt: 'vovó', en: 'grandma', es: 'abuela', de: 'oma', fr: 'mamie', zh: '奶奶', ja: 'おばあちゃん' }, audio: 'vovo_f.mp3' },
+    { id: 53, label: { pt: 'Tio', en: 'Uncle', es: 'Tío', de: 'Onkel', fr: 'Oncle', zh: '叔叔', ja: 'おじ' }, icon: <User />, colorfulIcon: 'tio.png', category: 'people', text: { pt: 'tio', en: 'uncle', es: 'tío', de: 'onkel', fr: 'oncle', zh: '叔叔', ja: 'おじ' }, audio: 'tio.mp3' },
+    { id: 54, label: { pt: 'Tia', en: 'Aunt', es: 'Tía', de: 'Tante', fr: 'Tante', zh: '阿姨', ja: 'おば' }, icon: <User />, colorfulIcon: 'tia.png', category: 'people', text: { pt: 'tia', en: 'aunt', es: 'tía', de: 'tante', fr: 'tante', zh: '阿姨', ja: 'おば' }, audio: 'tia.mp3' },
 
     // Ações (Verbs)
     { id: 18, label: { pt: 'Querer', en: 'Want', es: 'Querer', de: 'Wollen', fr: 'Vouloir', zh: '想要', ja: '欲しい' }, icon: <Hand />, colorfulIcon: 'querer.png', category: 'verb', text: { pt: 'querer', en: 'want', es: 'querer', de: 'wollen', fr: 'vouloir', zh: '想要', ja: '欲しい' }, audio: 'querer.mp3' },
@@ -53,6 +57,7 @@ export const QuoteSymbols = [
     { id: 26, label: { pt: 'Grande', en: 'Big', es: 'Grande', de: 'Groß', fr: 'Grand', zh: '大', ja: '大きい' }, icon: <Maximize2 />, colorfulIcon: 'grande.png', category: 'adj', text: { pt: 'grande', en: 'big', es: 'grande', de: 'groß', fr: 'grand', zh: '大', ja: '大きい' }, audio: 'grande.mp3' },
     { id: 27, label: { pt: 'Pequeno', en: 'Small', es: 'Pequeño', de: 'Klein', fr: 'Petit', zh: '小', ja: '小さい' }, icon: <Minimize2 />, colorfulIcon: 'pequeno.png', category: 'adj', text: { pt: 'pequeno', en: 'small', es: 'pequeño', de: 'klein', fr: 'petit', zh: '小', ja: '小さい' }, audio: 'pequeno.mp3' },
     { id: 28, label: { pt: 'Mais', en: 'More', es: 'Más', de: 'Mehr', fr: 'Plus', zh: '更多', ja: 'もっと' }, icon: <Plus />, colorfulIcon: 'mais.png', category: 'adj', text: { pt: 'mais', en: 'more', es: 'más', de: 'mehr', fr: 'plus', zh: '更多', ja: 'もっと' }, audio: 'mais.mp3' },
+    { id: 52, label: { pt: 'Menos', en: 'Less', es: 'Menos', de: 'Weniger', fr: 'Moins', zh: '更少', ja: '少ない' }, icon: <Minus />, colorfulIcon: 'menos.png', category: 'adj', text: { pt: 'menos', en: 'less', es: 'menos', de: 'weniger', fr: 'moins', zh: '更少', ja: '少ない' }, audio: 'menos.mp3' },
     { id: 29, label: { pt: 'Acabou', en: 'Finished', es: 'Acabó', de: 'Fertig', fr: 'Fini', zh: '完成', ja: '終わり' }, icon: <XCircle />, colorfulIcon: 'acabou.png', category: 'adj', text: { pt: 'acabou', en: 'finished', es: 'acabó', de: 'fertig', fr: 'fini', zh: '完成', ja: '終わり' }, audio: 'acabou.mp3' },
 
     // Sentimentos
@@ -61,6 +66,7 @@ export const QuoteSymbols = [
     { id: 12, label: { pt: 'Dor', en: 'Pain', es: 'Dolor', de: 'Schmerz', fr: 'Douleur', zh: '痛', ja: '痛み' }, icon: <AlertCircle />, colorfulIcon: 'dor.png', category: 'feelings', text: { pt: 'dor', en: 'pain', es: 'dolor', de: 'schmerz', fr: 'douleur', zh: '痛', ja: '痛み' }, audio: 'dor.mp3' },
     { id: 35, label: { pt: 'Sono', en: 'Sleepy', es: 'Sueño', de: 'Müde', fr: 'Sommeil', zh: '困', ja: '眠い' }, icon: <Moon />, colorfulIcon: 'sono.png', category: 'feelings', text: { pt: 'sono', en: 'sleepy', es: 'sueño', de: 'müde', fr: 'sommeil', zh: '困', ja: '眠い' }, audio: 'sono.mp3' },
     { id: 36, label: { pt: 'Cansado', en: 'Tired', es: 'Cansado', de: 'Erschöpft', fr: 'Fatigué', zh: '累', ja: '疲れた' }, icon: <BatteryLow />, colorfulIcon: 'cansado.png', category: 'feelings', text: { pt: 'cansado', en: 'tired', es: 'cansado', de: 'erschöpft', fr: 'fatigué', zh: '累', ja: '疲れた' }, audio: 'cansado.mp3' },
+    { id: 55, label: { pt: 'Alegre', en: 'Cheerful', es: 'Alegre', de: 'Fröhlich', fr: 'Joyeux', zh: '快乐', ja: '朗らか' }, icon: <Smile />, colorfulIcon: 'alegre.png', category: 'feelings', text: { pt: 'alegre', en: 'cheerful', es: 'alegre', de: 'fröhlich', fr: 'joyeux', zh: '快乐', ja: '朗らか' }, audio: 'alegre.mp3' },
 
     // Lugares Adicionais
     { id: 30, label: { pt: 'Casa', en: 'Home', es: 'Casa', de: 'Zuhause', fr: 'Maison', zh: '家', ja: '家' }, icon: <Home />, colorfulIcon: 'casa.png', category: 'noun', text: { pt: 'casa', en: 'home', es: 'casa', de: 'zuhause', fr: 'maison', zh: '家', ja: '家' }, audio: 'casa.mp3' },
